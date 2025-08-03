@@ -167,9 +167,12 @@ function initializeAdminInterface() {
 // Load data for specific admin sections
 async function loadSectionData(sectionId) {
     try {
+        console.log('Loading section data for:', sectionId);
+        
         // Check if database is ready
         if (!window.db || !window.models) {
-            console.log('Database not ready yet, skipping data load for:', sectionId);
+            console.log('Database not ready yet, showing default content for:', sectionId);
+            showDefaultContent(sectionId);
             return;
         }
         
@@ -198,16 +201,53 @@ async function loadSectionData(sectionId) {
             case 'database':
                 await loadDatabaseData();
                 break;
+            case 'content':
+                loadContentData();
+                break;
+            case 'booster-management':
+                loadBoosterManagementData();
+                break;
+            case 'settings':
+                loadSettingsData();
+                break;
             default:
                 console.log('Unknown section:', sectionId);
+                showDefaultContent(sectionId);
         }
     } catch (error) {
         console.error(`Failed to load data for section ${sectionId}:`, error);
-        // Don't show error message for database not ready
-        if (!error.message.includes('Database not ready')) {
-            SecurityMessage.show(`Failed to load ${sectionId} data`, 'error');
-        }
+        showDefaultContent(sectionId);
     }
+}
+
+// Show default content when database is not ready
+function showDefaultContent(sectionId) {
+    console.log('Showing default content for section:', sectionId);
+    
+    // For most sections, the HTML already has default content
+    // We just need to make sure the section is visible
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.style.display = 'block';
+    }
+}
+
+// Load content data (doesn't require database)
+function loadContentData() {
+    console.log('Loading content data...');
+    // Content section uses static HTML, no database needed
+}
+
+// Load booster management data (doesn't require database)
+function loadBoosterManagementData() {
+    console.log('Loading booster management data...');
+    // Booster management uses static HTML, no database needed
+}
+
+// Load settings data (doesn't require database)
+function loadSettingsData() {
+    console.log('Loading settings data...');
+    // Settings section uses static HTML, no database needed
 }
 
 // Section data loading functions
@@ -332,41 +372,73 @@ async function loadDatabaseData() {
 
 // Table population functions
 function populateMembersTable(members) {
-    const tableBody = document.getElementById('members-table-body');
-    if (!tableBody) return;
-    
-    tableBody.innerHTML = members.map(member => `
-        <tr>
-            <td>${SafeDOM.escapeHtml(member.name)}</td>
-            <td>${SafeDOM.escapeHtml(member.email)}</td>
-            <td><span class="badge badge-${member.tier}">${member.tier}</span></td>
-            <td>${SafeDOM.escapeHtml(member.paymentType)}</td>
-            <td>${SafeDOM.escapeHtml(member.joinDate)}</td>
-            <td><span class="badge badge-${member.status}">${member.status}</span></td>
-            <td>
-                <button class="btn btn-small" onclick="editMember(${member.id})">Edit</button>
-                <button class="btn btn-small btn-danger" onclick="deleteMember(${member.id})">Delete</button>
-            </td>
-        </tr>
-    `).join('');
+    try {
+        const tableBody = document.getElementById('members-table-body');
+        if (!tableBody) {
+            console.log('Members table body not found');
+            return;
+        }
+        
+        if (!members || members.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #666;">No members found. Load sample data to see examples.</td></tr>';
+            return;
+        }
+        
+        tableBody.innerHTML = members.map(member => `
+            <tr>
+                <td>${SafeDOM.escapeHtml(member.name || 'N/A')}</td>
+                <td>${SafeDOM.escapeHtml(member.email || 'N/A')}</td>
+                <td><span class="badge badge-${member.tier || 'basic'}">${member.tier || 'Basic'}</span></td>
+                <td>${SafeDOM.escapeHtml(member.paymentType || 'N/A')}</td>
+                <td>${SafeDOM.escapeHtml(member.joinDate || 'N/A')}</td>
+                <td><span class="badge badge-${member.status || 'active'}">${member.status || 'Active'}</span></td>
+                <td>
+                    <button class="btn btn-small" onclick="editMember(${member.id || 0})">Edit</button>
+                    <button class="btn btn-small btn-danger" onclick="deleteMember(${member.id || 0})">Delete</button>
+                </td>
+            </tr>
+        `).join('');
+    } catch (error) {
+        console.error('Error populating members table:', error);
+        const tableBody = document.getElementById('members-table-body');
+        if (tableBody) {
+            tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #666;">Error loading members. Please try again.</td></tr>';
+        }
+    }
 }
 
 function populateDonationsTable(donations) {
-    const tableBody = document.getElementById('donations-table-body');
-    if (!tableBody) return;
-    
-    tableBody.innerHTML = donations.map(donation => `
-        <tr>
-            <td>${SafeDOM.escapeHtml(donation.donorName)}</td>
-            <td>${SafeDOM.escapeHtml(donation.donorEmail)}</td>
-            <td>$${donation.amount}</td>
-            <td><span class="badge badge-${donation.tier}">${donation.tier}</span></td>
-            <td>${SafeDOM.escapeHtml(donation.boosterClub)}</td>
-            <td>${SafeDOM.escapeHtml(donation.paymentMethod)}</td>
-            <td>${SafeDOM.escapeHtml(donation.date)}</td>
-            <td><span class="badge badge-${donation.status}">${donation.status}</span></td>
-        </tr>
-    `).join('');
+    try {
+        const tableBody = document.getElementById('donations-table-body');
+        if (!tableBody) {
+            console.log('Donations table body not found');
+            return;
+        }
+        
+        if (!donations || donations.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: #666;">No donations found. Load sample data to see examples.</td></tr>';
+            return;
+        }
+        
+        tableBody.innerHTML = donations.map(donation => `
+            <tr>
+                <td>${SafeDOM.escapeHtml(donation.donorName || 'Anonymous')}</td>
+                <td>${SafeDOM.escapeHtml(donation.donorEmail || 'N/A')}</td>
+                <td>$${donation.amount || 0}</td>
+                <td><span class="badge badge-${donation.tier || 'basic'}">${donation.tier || 'Basic'}</span></td>
+                <td>${SafeDOM.escapeHtml(donation.boosterClub || 'General')}</td>
+                <td>${SafeDOM.escapeHtml(donation.paymentMethod || 'N/A')}</td>
+                <td>${SafeDOM.escapeHtml(donation.date || 'N/A')}</td>
+                <td><span class="badge badge-${donation.status || 'completed'}">${donation.status || 'Completed'}</span></td>
+            </tr>
+        `).join('');
+    } catch (error) {
+        console.error('Error populating donations table:', error);
+        const tableBody = document.getElementById('donations-table-body');
+        if (tableBody) {
+            tableBody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: #666;">Error loading donations. Please try again.</td></tr>';
+        }
+    }
 }
 
 function populateVendorsTable(vendors) {
