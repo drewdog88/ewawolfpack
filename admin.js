@@ -132,6 +132,8 @@ function initializeAdminInterface() {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             
+            console.log('Sidebar link clicked:', this.getAttribute('data-section'));
+            
             // Remove active class from all links and sections
             sidebarLinks.forEach(l => l.classList.remove('active'));
             adminSections.forEach(s => s.classList.remove('active'));
@@ -141,10 +143,17 @@ function initializeAdminInterface() {
             
             // Show corresponding section
             const targetSection = this.getAttribute('data-section');
-            document.getElementById(targetSection).classList.add('active');
+            const sectionElement = document.getElementById(targetSection);
             
-            // Load section-specific data
-            loadSectionData(targetSection);
+            if (sectionElement) {
+                sectionElement.classList.add('active');
+                console.log('Section activated:', targetSection);
+                
+                // Load section-specific data
+                loadSectionData(targetSection);
+            } else {
+                console.error('Section not found:', targetSection);
+            }
         });
     });
     
@@ -158,6 +167,12 @@ function initializeAdminInterface() {
 // Load data for specific admin sections
 async function loadSectionData(sectionId) {
     try {
+        // Check if database is ready
+        if (!window.db || !window.models) {
+            console.log('Database not ready yet, skipping data load for:', sectionId);
+            return;
+        }
+        
         switch (sectionId) {
             case 'dashboard':
                 await loadDashboardData();
@@ -183,16 +198,26 @@ async function loadSectionData(sectionId) {
             case 'database':
                 await loadDatabaseData();
                 break;
+            default:
+                console.log('Unknown section:', sectionId);
         }
     } catch (error) {
         console.error(`Failed to load data for section ${sectionId}:`, error);
-        SecurityMessage.show(`Failed to load ${sectionId} data`, 'error');
+        // Don't show error message for database not ready
+        if (!error.message.includes('Database not ready')) {
+            SecurityMessage.show(`Failed to load ${sectionId} data`, 'error');
+        }
     }
 }
 
 // Section data loading functions
 async function loadDashboardData() {
     try {
+        if (!window.db) {
+            console.log('Database not ready for dashboard data');
+            return;
+        }
+        
         // Load dashboard statistics
         const stats = await window.db.getStats();
         
@@ -209,6 +234,11 @@ async function loadDashboardData() {
 
 async function loadMembersData() {
     try {
+        if (!window.models || !window.models.members) {
+            console.log('Members model not ready');
+            return;
+        }
+        
         const members = await window.models.members.getActive();
         populateMembersTable(members);
     } catch (error) {
@@ -218,6 +248,11 @@ async function loadMembersData() {
 
 async function loadDonationsData() {
     try {
+        if (!window.models || !window.models.donations) {
+            console.log('Donations model not ready');
+            return;
+        }
+        
         const donations = await window.models.donations.query({ status: 'completed' });
         populateDonationsTable(donations);
     } catch (error) {
@@ -227,6 +262,11 @@ async function loadDonationsData() {
 
 async function loadVendorsData() {
     try {
+        if (!window.models || !window.models.vendors) {
+            console.log('Vendors model not ready');
+            return;
+        }
+        
         const vendors = await window.models.vendors.query();
         populateVendorsTable(vendors);
     } catch (error) {
@@ -236,6 +276,11 @@ async function loadVendorsData() {
 
 async function loadInsuranceData() {
     try {
+        if (!window.models || !window.models.insurance) {
+            console.log('Insurance model not ready');
+            return;
+        }
+        
         const insuranceRecords = await window.models.insurance.query();
         populateInsuranceTable(insuranceRecords);
     } catch (error) {
@@ -245,6 +290,11 @@ async function loadInsuranceData() {
 
 async function loadReportsData() {
     try {
+        if (!window.models || !window.models.reports) {
+            console.log('Reports model not ready');
+            return;
+        }
+        
         const reports = await window.models.reports.getRecent(10);
         populateReportsTable(reports);
     } catch (error) {
@@ -254,6 +304,11 @@ async function loadReportsData() {
 
 async function loadLogsData() {
     try {
+        if (!window.models || !window.models.adminLogs) {
+            console.log('Admin logs model not ready');
+            return;
+        }
+        
         const logs = await window.models.adminLogs.getRecent(50);
         populateLogsTable(logs);
     } catch (error) {
@@ -263,6 +318,11 @@ async function loadLogsData() {
 
 async function loadDatabaseData() {
     try {
+        if (!window.db) {
+            console.log('Database not ready for database data');
+            return;
+        }
+        
         await updateDatabaseStats();
         await refreshDatabaseLogs();
     } catch (error) {
@@ -3015,4 +3075,25 @@ if (typeof SafeDOM === 'undefined') {
             return div.innerHTML;
         }
     };
-} 
+}
+
+// Test function to verify navigation works
+function testNavigation() {
+    console.log('Testing navigation...');
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    const adminSections = document.querySelectorAll('.admin-section');
+    
+    console.log('Found sidebar links:', sidebarLinks.length);
+    console.log('Found admin sections:', adminSections.length);
+    
+    sidebarLinks.forEach(link => {
+        const sectionId = link.getAttribute('data-section');
+        const sectionElement = document.getElementById(sectionId);
+        console.log(`Link ${sectionId}: ${sectionElement ? 'Found' : 'Missing'}`);
+    });
+}
+
+// Run navigation test on page load
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(testNavigation, 1000);
+}); 
