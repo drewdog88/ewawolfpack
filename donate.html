@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate to Eastlake Wolfpack Association</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="donate.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="images/eastlake-wolves-logo.png" alt="Eastlake Wolves" class="logo-img">
+                <span class="logo-text">Eastlake Wolfpack Association</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="membership.html" class="nav-link">Join</a>
+                </li>
+                <li class="nav-item">
+                    <a href="donate.html" class="nav-link active">Donate</a>
+                </li>
+                <li class="nav-item">
+                    <a href="officers.html" class="nav-link">Officers</a>
+                </li>
+                <li class="nav-item">
+                    <a href="accomplishments.html" class="nav-link">Accomplishments</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-login.html" class="nav-link">Admin</a>
+                </li>
+                <li class="nav-item">
+                    <a href="booster-login.html" class="nav-link">Club Login</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Support Our Student-Athletes</h1>
+            <p>Your donation helps provide equipment, facilities, and opportunities for Eastlake athletes</p>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="impact-section">
+        <div class="container">
+            <h2 class="section-title">Your Impact</h2>
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <div class="impact-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Equipment & Gear</h3>
+                    <p>Provide state-of-the-art equipment and safety gear for all sports teams</p>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3>Training & Development</h3>
+                    <p>Support specialized training programs and coaching development</p>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Academic Support</h3>
+                    <p>Fund scholarships and academic resources for student-athletes</p>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Community Events</h3>
+                    <p>Host community events and recognition ceremonies</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booster Club Selection -->
+    <section class="booster-selection">
+        <div class="container">
+            <h2 class="section-title">Select Booster Club</h2>
+            <div class="booster-dropdown-container">
+                <label for="booster-club">Choose which booster club to support:</label>
+                <select id="booster-club" class="booster-dropdown" required>
+                    <option value="">-- Select a Booster Club --</option>
+                    <option value="cheer">Cheer</option>
+                    <option value="dance">Dance</option>
+                    <option value="softball">Softball</option>
+                    <option value="boys-soccer">Boys Soccer</option>
+                    <option value="girls-soccer">Girls Soccer</option>
+                    <option value="boys-swim-dive">Boys Swim and Dive</option>
+                    <option value="girls-swim-dive">Girls Swim and Dive</option>
+                    <option value="wrestling">Wrestling</option>
+                    <option value="robotics">Robotics</option>
+                    <option value="volleyball">Volleyball</option>
+                    <option value="boys-basketball">Boys Basketball</option>
+                    <option value="girls-basketball">Girls Basketball</option>
+                    <option value="boys-golf">Boys Golf</option>
+                    <option value="girls-golf">Girls Golf</option>
+                    <option value="decca">DECCA</option>
+                    <option value="theater">Theater</option>
+                    <option value="choir">Choir</option>
+                    <option value="gymnastics">Gymnastics</option>
+                    <option value="orchestra">Orchestra</option>
+                    <option value="band">Band</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation Tiers -->
+    <section class="donation-tiers" id="donation-tiers" style="display: none;">
+        <div class="container">
+            <h2 class="section-title">Choose Your Donation Level</h2>
+            <div class="tiers-grid">
+                <div class="tier-card">
+                    <div class="tier-header">
+                        <h3>Bronze Donor</h3>
+                        <div class="price">$25</div>
+                    </div>
+                    <ul class="tier-benefits">
+                        <li><i class="fas fa-check"></i> Recognition in annual report</li>
+                        <li><i class="fas fa-check"></i> Thank you letter</li>
+                        <li><i class="fas fa-check"></i> Tax-deductible receipt</li>
+                    </ul>
+                    <button class="btn btn-primary select-donation" data-tier="bronze" data-amount="25">Donate $25</button>
+                </div>
+
+                <div class="tier-card featured">
+                    <div class="tier-badge">Most Popular</div>
+                    <div class="tier-header">
+                        <h3>Gold Donor</h3>
+                        <div class="price">$100</div>
+                    </div>
+                    <ul class="tier-benefits">
+                        <li><i class="fas fa-check"></i> All Bronze benefits</li>
+                        <li><i class="fas fa-check"></i> Name on donor wall</li>
+                        <li><i class="fas fa-check"></i> Recognition at home games</li>
+                        <li><i class="fas fa-check"></i> Special donor event invitation</li>
+                    </ul>
+                    <button class="btn btn-primary select-donation" data-tier="gold" data-amount="100">Donate $100</button>
+                </div>
+
+                <div class="tier-card">
+                    <div class="tier-header">
+                        <h3>Diamond Donor</h3>
+                        <div class="price">$500</div>
+                    </div>
+                    <ul class="tier-benefits">
+                        <li><i class="fas fa-check"></i> All Gold benefits</li>
+                        <li><i class="fas fa-check"></i> VIP parking at all home games</li>
+                        <li><i class="fas fa-check"></i> Exclusive donor appreciation dinner</li>
+                        <li><i class="fas fa-check"></i> Personalized plaque on donor wall</li>
+                        <li><i class="fas fa-check"></i> Meet & greet with coaches</li>
+                    </ul>
+                    <button class="btn btn-primary select-donation" data-tier="diamond" data-amount="500">Donate $500</button>
+                </div>
+            </div>
+
+            <!-- Custom Amount -->
+            <div class="custom-amount-section">
+                <h3>Or Choose Your Own Amount</h3>
+                <div class="custom-amount-form">
+                    <div class="amount-input">
+                        <span class="currency">$</span>
+                        <input type="number" id="custom-amount" placeholder="Enter amount" min="1" step="1">
+                    </div>
+                    <button class="btn btn-secondary" id="custom-donate">Donate</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation Form -->
+    <section class="donation-form" id="donation-form">
+        <div class="container">
+            <div class="form-container">
+                <h2>Complete Your Donation</h2>
+                <form id="donate-form">
+                                    <div class="selected-donation-display">
+                    <h3>Donation Amount: $<span id="selected-amount">0</span></h3>
+                    <p>Tier: <span id="selected-tier">No tier selected</span></p>
+                    <p>Booster Club: <span id="selected-booster">No club selected</span></p>
+                </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="donorFirstName">First Name *</label>
+                            <input type="text" id="donorFirstName" name="donorFirstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="donorLastName">Last Name *</label>
+                            <input type="text" id="donorLastName" name="donorLastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="donorEmail">Email Address *</label>
+                            <input type="email" id="donorEmail" name="donorEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="donorPhone">Phone Number</label>
+                            <input type="tel" id="donorPhone" name="donorPhone">
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Recognition Preferences</h3>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="anonymous" name="anonymous">
+                            <label for="anonymous">Make this donation anonymous</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="newsletter" name="newsletter">
+                            <label for="newsletter">Subscribe to our newsletter for updates</label>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Payment Information</h3>
+                        <div class="payment-options">
+                            <div class="payment-option">
+                                <input type="radio" id="stripe-donate" name="paymentMethod" value="stripe" checked>
+                                <label for="stripe-donate">Credit/Debit Card (Stripe)</label>
+                            </div>
+                            <div class="payment-option">
+                                <input type="radio" id="zelle-donate" name="paymentMethod" value="zelle">
+                                <label for="zelle-donate">Zelle Transfer</label>
+                            </div>
+                        </div>
+
+                        <div id="stripe-payment-donate" class="payment-section">
+                            <div id="card-element-donate" class="card-element">
+                                <!-- Stripe Card Element will be inserted here -->
+                            </div>
+                            <div id="card-errors-donate" class="error-message" role="alert"></div>
+                        </div>
+
+                        <div id="zelle-payment-donate" class="payment-section" style="display: none;">
+                            <div class="zelle-info">
+                                <div id="zelle-club-info">
+                                    <p><strong>Zelle Payment Instructions:</strong></p>
+                                    <p>Send payment to: <strong id="zelle-email-display">treasurer@eastlakewolfpack.org</strong></p>
+                                    <p>Recipient: <strong id="zelle-name-display">Eastlake Wolfpack Association</strong></p>
+                                    <p>Please include your name and the booster club name in the memo field.</p>
+                                    <p>Your donation will be processed once payment is received.</p>
+                                </div>
+                                <div id="zelle-qr-section" class="zelle-qr-section" style="display: none;">
+                                    <h4>Quick Payment QR Code</h4>
+                                    <div id="zelle-qr-container" class="qr-container">
+                                        <p class="qr-placeholder">QR code will appear here</p>
+                                    </div>
+                                    <p class="qr-instruction">Scan with your phone's camera or Zelle app</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="agree-donate" name="agree" required>
+                            <label for="agree-donate">I agree to the <a href="#" target="_blank">Terms and Conditions</a> and <a href="#" target="_blank">Privacy Policy</a> *</label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="submit-donate-btn">
+                            <span id="submit-donate-text">Complete Donation</span>
+                            <span id="submit-donate-loading" style="display: none;">
+                                <i class="fas fa-spinner fa-spin"></i> Processing...
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Eastlake Wolfpack Association</h3>
+                    <p>Supporting Eastlake High School Athletics</p>
+                    <p>400 228th Ave NE<br>Sammamish, WA 98074</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="membership.html">Join</a></li>
+                        <li><a href="donate.html">Donate</a></li>
+                        <li><a href="officers.html">Officers</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <p>Email: info@eastlakewolfpack.org</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Eastlake Wolfpack Association. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="script.js"></script>
+    <script src="donate.js"></script>
+    <script src="contact-protection.js"></script>
+</body>
+</html> 

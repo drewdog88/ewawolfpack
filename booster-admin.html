@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booster Club Dashboard - Eastlake Wolfpack Association</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <img src="images/eastlake-wolves-logo.png" alt="Eastlake Wolves" class="logo-img">
+                    <div class="header-text">
+                        <h1 id="club-name">Booster Club Dashboard</h1>
+                        <p id="club-subtitle">Manage your club's content and reporting</p>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <span class="user-info" id="user-info">Welcome, <span id="username-display"></span></span>
+                    <button class="logout-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h3 id="sidebar-club-name">Club Admin</h3>
+                <p>Welcome to your dashboard</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="sidebar-link active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+                <a href="#donations" class="sidebar-link" data-section="donations">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    Donations
+                </a>
+                <a href="#tiers" class="sidebar-link" data-section="tiers">
+                    <i class="fas fa-layer-group"></i>
+                    Donation Tiers
+                </a>
+                <a href="#content" class="sidebar-link" data-section="content">
+                    <i class="fas fa-edit"></i>
+                    Content
+                </a>
+                <a href="#reports" class="sidebar-link" data-section="reports">
+                    <i class="fas fa-chart-bar"></i>
+                    Reports
+                </a>
+                <a href="#vendors" class="sidebar-link" data-section="vendors">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    1099 Vendors
+                </a>
+                <a href="#insurance" class="sidebar-link" data-section="insurance">
+                    <i class="fas fa-shield-alt"></i>
+                    Insurance
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="admin-section active">
+                <div class="section-header">
+                    <h1>Club Dashboard</h1>
+                    <p>Overview of your booster club activities</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Total Donations</h3>
+                            <p class="stat-number" id="total-donations">$0</p>
+                            <p class="stat-change positive">+$0 this month</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Donors</h3>
+                            <p class="stat-number" id="total-donors">0</p>
+                            <p class="stat-change positive">+0 this month</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Events This Month</h3>
+                            <p class="stat-number" id="events-count">0</p>
+                            <p class="stat-change">Next: TBD</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Growth</h3>
+                            <p class="stat-number" id="growth-percent">0%</p>
+                            <p class="stat-change positive">vs last month</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Recent Donations</h3>
+                        <div class="activity-list" id="recent-donations">
+                            <p class="no-data">No recent donations</p>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>Top Donors</h3>
+                        <div class="activity-list" id="top-donors">
+                            <p class="no-data">No donor data available</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Donations Section -->
+            <section id="donations" class="admin-section">
+                <div class="section-header">
+                    <h1>Donation Management</h1>
+                    <p>View and manage donations for your club</p>
+                </div>
+
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Recent Donations</h3>
+                        <div class="table-actions">
+                            <input type="text" id="donation-search" placeholder="Search donations..." class="search-input">
+                            <select id="donation-filter" class="filter-select">
+                                <option value="">All Tiers</option>
+                                <option value="bronze">Bronze</option>
+                                <option value="silver">Silver</option>
+                                <option value="gold">Gold</option>
+                                <option value="diamond">Diamond</option>
+                            </select>
+                            <button class="btn btn-outline" onclick="exportDonations()">
+                                <i class="fas fa-download"></i> Export
+                            </button>
+                        </div>
+                    </div>
+                    <table class="admin-table" id="donations-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Donor</th>
+                                <th>Amount</th>
+                                <th>Tier</th>
+                                <th>Payment Method</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="donations-tbody">
+                            <tr>
+                                <td colspan="6" class="no-data">No donations found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Donation Tiers Section -->
+            <section id="tiers" class="admin-section">
+                <div class="section-header">
+                    <h1>Donation Tiers Management</h1>
+                    <p>Customize your club's donation tiers and descriptions</p>
+                </div>
+
+                <div class="tiers-container">
+                    <div class="tier-form-card">
+                        <h3>Edit Donation Tiers</h3>
+                        <form id="tiers-form" class="tiers-form">
+                            <div class="tier-group">
+                                <h4>Bronze Tier</h4>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="bronze-amount">Amount ($)</label>
+                                        <input type="number" id="bronze-amount" name="bronzeAmount" value="25" min="1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bronze-title">Title</label>
+                                        <input type="text" id="bronze-title" name="bronzeTitle" value="Bronze Supporter">
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label for="bronze-description">Description</label>
+                                        <textarea id="bronze-description" name="bronzeDescription" rows="3">Support our student-athletes with a Bronze level donation. Your contribution helps provide essential equipment and resources.</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tier-group">
+                                <h4>Silver Tier</h4>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="silver-amount">Amount ($)</label>
+                                        <input type="number" id="silver-amount" name="silverAmount" value="100" min="1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="silver-title">Title</label>
+                                        <input type="text" id="silver-title" name="silverTitle" value="Silver Supporter">
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label for="silver-description">Description</label>
+                                        <textarea id="silver-description" name="silverDescription" rows="3">Make a significant impact with a Silver level donation. Your support helps fund training programs and competition expenses.</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tier-group">
+                                <h4>Gold Tier</h4>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="gold-amount">Amount ($)</label>
+                                        <input type="number" id="gold-amount" name="goldAmount" value="250" min="1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="gold-title">Title</label>
+                                        <input type="text" id="gold-title" name="goldTitle" value="Gold Supporter">
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label for="gold-description">Description</label>
+                                        <textarea id="gold-description" name="goldDescription" rows="3">Join our Gold level supporters and help provide premium resources, advanced training, and championship opportunities.</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tier-group">
+                                <h4>Diamond Tier</h4>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="diamond-amount">Amount ($)</label>
+                                        <input type="number" id="diamond-amount" name="diamondAmount" value="500" min="1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="diamond-title">Title</label>
+                                        <input type="text" id="diamond-title" name="diamondTitle" value="Diamond Supporter">
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label for="diamond-description">Description</label>
+                                        <textarea id="diamond-description" name="diamondDescription" rows="3">Our highest level of support. Diamond donors provide transformative resources that create lasting impact on our student-athletes' success.</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Save Tier Changes
+                                </button>
+                                <button type="button" class="btn btn-outline" onclick="resetTiers()">
+                                    <i class="fas fa-undo"></i> Reset to Default
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tier-preview-card">
+                        <h3>Preview</h3>
+                        <div class="tier-preview" id="tier-preview">
+                            <!-- Preview will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Content Section -->
+            <section id="content" class="admin-section">
+                <div class="section-header">
+                    <h1>Content Management</h1>
+                    <p>Customize your club's content and messaging</p>
+                </div>
+
+                <div class="content-container">
+                    <div class="content-card">
+                        <h3>Club Description</h3>
+                        <div class="form-group">
+                            <label for="club-description">About Your Club</label>
+                            <textarea id="club-description" rows="6" placeholder="Describe your booster club, its mission, and what makes it special..."></textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="saveClubDescription()">
+                            <i class="fas fa-save"></i> Save Description
+                        </button>
+                    </div>
+
+                    <div class="content-card">
+                        <h3>Donation Appeal</h3>
+                        <div class="form-group">
+                            <label for="donation-appeal">Donation Request Message</label>
+                            <textarea id="donation-appeal" rows="6" placeholder="Write a compelling message asking for donations..."></textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="saveDonationAppeal()">
+                            <i class="fas fa-save"></i> Save Appeal
+                        </button>
+                    </div>
+
+                    <div class="content-card">
+                        <h3>Thank You Message</h3>
+                        <div class="form-group">
+                            <label for="thank-you-message">Thank You Message</label>
+                            <textarea id="thank-you-message" rows="6" placeholder="Personalized thank you message for donors..."></textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="saveThankYouMessage()">
+                            <i class="fas fa-save"></i> Save Message
+                        </button>
+                    </div>
+
+                    <div class="content-card">
+                        <h3>Payment Settings</h3>
+                        <div class="form-group">
+                            <label for="zelle-email">Zelle Payment Email Address</label>
+                            <input type="email" id="zelle-email" placeholder="Enter the email address for Zelle payments">
+                            <small class="form-help">This is the email address donors will use to send Zelle payments to your club</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="zelle-name">Zelle Display Name</label>
+                            <input type="text" id="zelle-name" placeholder="e.g., Eastlake Cheer Boosters">
+                            <small class="form-help">The name that will appear when donors search for your Zelle account</small>
+                        </div>
+                        <div class="zelle-qr-section">
+                            <h4>Zelle QR Code</h4>
+                            <div id="zelle-qr-container" class="qr-container">
+                                <p class="qr-placeholder">Enter your Zelle email above to generate QR code</p>
+                            </div>
+                            <button class="btn btn-outline" onclick="generateZelleQR()" id="generate-qr-btn" disabled>
+                                <i class="fas fa-qrcode"></i> Generate QR Code
+                            </button>
+                            <button class="btn btn-outline" onclick="downloadQRCode()" id="download-qr-btn" disabled>
+                                <i class="fas fa-download"></i> Download QR Code
+                            </button>
+                            <button class="btn btn-outline" onclick="testQRCode()" style="margin-top: 10px;">
+                                <i class="fas fa-bug"></i> Test QR Code
+                            </button>
+                        </div>
+                        <button class="btn btn-primary" onclick="savePaymentSettings()">
+                            <i class="fas fa-save"></i> Save Payment Settings
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section id="reports" class="admin-section">
+                <div class="section-header">
+                    <h1>Club Reports</h1>
+                    <p>Generate reports for your booster club</p>
+                </div>
+
+                <div class="reports-container">
+                    <div class="reports-grid">
+                        <div class="report-card">
+                            <h3>Donation Summary</h3>
+                            <p>Monthly and yearly donation reports</p>
+                            <button class="btn btn-primary" onclick="generateDonationReport()">
+                                <i class="fas fa-chart-bar"></i> Generate Report
+                            </button>
+                        </div>
+
+                        <div class="report-card">
+                            <h3>Donor Analysis</h3>
+                            <p>Donor demographics and giving patterns</p>
+                            <button class="btn btn-primary" onclick="generateDonorReport()">
+                                <i class="fas fa-users"></i> Generate Report
+                            </button>
+                        </div>
+
+                        <div class="report-card">
+                            <h3>Tier Performance</h3>
+                            <p>Analysis of donation tier effectiveness</p>
+                            <button class="btn btn-primary" onclick="generateTierReport()">
+                                <i class="fas fa-layer-group"></i> Generate Report
+                            </button>
+                        </div>
+
+                        <div class="report-card">
+                            <h3>Export Data</h3>
+                            <p>Export donation data in various formats</p>
+                            <div class="export-buttons">
+                                <button class="btn btn-outline" onclick="exportToCSV()">CSV</button>
+                                <button class="btn btn-outline" onclick="exportToExcel()">Excel</button>
+                                <button class="btn btn-outline" onclick="exportToPDF()">PDF</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vendors Section -->
+            <section id="vendors" class="admin-section">
+                <div class="section-header">
+                    <h1>1099 Vendor Management</h1>
+                    <p>Track vendors and contractors for your club</p>
+                </div>
+
+                <div class="vendors-container">
+                    <div class="vendor-form-card">
+                        <h3>Add New Vendor</h3>
+                        <form id="vendor-form" class="vendor-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="vendor-name">Business Name *</label>
+                                    <input type="text" id="vendor-name" name="vendorName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vendor-tin">Tax ID (EIN/SSN) *</label>
+                                    <input type="text" id="vendor-tin" name="vendorTIN" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vendor-address">Address *</label>
+                                    <input type="text" id="vendor-address" name="vendorAddress" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vendor-services">Services</label>
+                                    <textarea id="vendor-services" name="vendorServices" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Add Vendor
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="vendors-table-card">
+                        <h3>Your Club's Vendors</h3>
+                        <table class="admin-table" id="vendors-table">
+                            <thead>
+                                <tr>
+                                    <th>Business Name</th>
+                                    <th>Tax ID</th>
+                                    <th>Address</th>
+                                    <th>Services</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="vendors-tbody">
+                                <tr>
+                                    <td colspan="5" class="no-data">No vendors found</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Insurance Section -->
+            <section id="insurance" class="admin-section">
+                <div class="section-header">
+                    <h1>Insurance Information</h1>
+                    <p>Manage your club's insurance activity information</p>
+                </div>
+
+                <div class="insurance-container">
+                    <div class="insurance-form-card">
+                        <h3>Insurance Activity Form</h3>
+                        <form id="insurance-form" class="insurance-form">
+                            <div class="form-section">
+                                <h4>Contact Information</h4>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="insurance-contact">Contact Name *</label>
+                                        <input type="text" id="insurance-contact" name="insuranceContact" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="insurance-phone">Phone *</label>
+                                        <input type="tel" id="insurance-phone" name="insurancePhone" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="insurance-email">Email *</label>
+                                        <input type="email" id="insurance-email" name="insuranceEmail" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4>Financial Information</h4>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="insurance-contributions">Contributions/Donations</label>
+                                        <input type="number" id="insurance-contributions" name="insuranceContributions" step="0.01">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="insurance-fundraising">Fundraising Revenue</label>
+                                        <input type="number" id="insurance-fundraising" name="insuranceFundraising" step="0.01">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Save Insurance Info
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>
+    <script src="script.js"></script>
+    <script src="booster-admin.js"></script>
+</body>
+</html> 

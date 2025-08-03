@@ -1,0 +1,2130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Eastlake Wolfpack Association</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="admin-security.js"></script>
+    <script src="database.js"></script>
+    <script src="admin.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="images/eastlake-wolves-logo.png" alt="Eastlake Wolves" class="logo-img">
+                <span class="logo-text">Eastlake Wolfpack Association - Admin</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">View Website</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#dashboard" class="nav-link active">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#members" class="nav-link">Members</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#donations" class="nav-link">Donations</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#content" class="nav-link">Content</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#reports" class="nav-link">Reports</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Admin Container -->
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h3>Admin Panel</h3>
+                <p>Welcome, Administrator</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="sidebar-link active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+                <a href="#members" class="sidebar-link" data-section="members">
+                    <i class="fas fa-users"></i>
+                    Members
+                </a>
+                <a href="#donations" class="sidebar-link" data-section="donations">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    Donations
+                </a>
+                <a href="#content" class="sidebar-link" data-section="content">
+                    <i class="fas fa-edit"></i>
+                    Content
+                </a>
+                <a href="#reports" class="sidebar-link" data-section="reports">
+                    <i class="fas fa-chart-bar"></i>
+                    Reports
+                </a>
+                <a href="#vendors" class="sidebar-link" data-section="vendors">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    1099 Vendors
+                </a>
+                                    <a href="#insurance" class="sidebar-link" data-section="insurance">
+                        <i class="fas fa-shield-alt"></i>
+                        Insurance
+                    </a>
+                    <a href="#booster-management" class="sidebar-link" data-section="booster-management">
+                        <i class="fas fa-users"></i>
+                        Booster Club Management
+                    </a>
+                    <a href="#admin-logs" class="sidebar-link" data-section="admin-logs">
+                        <i class="fas fa-clipboard-list"></i>
+                        Admin Logs
+                    </a>
+                    <a href="#settings" class="sidebar-link" data-section="settings">
+                        <i class="fas fa-cog"></i>
+                        Settings
+                    </a>
+                    <a href="#database" class="sidebar-link" data-section="database">
+                        <i class="fas fa-database"></i>
+                        Database
+                    </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="admin-section active">
+                <div class="section-header">
+                    <h1>Dashboard</h1>
+                    <p>Overview of your booster club activities</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Total Members</h3>
+                            <p class="stat-number">247</p>
+                            <p class="stat-change positive">+12 this month</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Total Revenue</h3>
+                            <p class="stat-number">$18,450</p>
+                            <p class="stat-change positive">+$2,300 this month</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Donations</h3>
+                            <p class="stat-number">$8,750</p>
+                            <p class="stat-change positive">+$1,200 this month</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Events This Month</h3>
+                            <p class="stat-number">3</p>
+                            <p class="stat-change">Next: Home Game</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Recent Memberships</h3>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p><strong>John Smith</strong> joined as Gold Member</p>
+                                    <span class="activity-time">2 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p><strong>Sarah Johnson</strong> joined as Silver Member</p>
+                                    <span class="activity-time">1 day ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p><strong>Mike Davis</strong> joined as Basic Member</p>
+                                    <span class="activity-time">2 days ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <h3>Recent Donations</h3>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p><strong>Anonymous</strong> donated $500 (Diamond)</p>
+                                    <span class="activity-time">3 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p><strong>Lisa Wilson</strong> donated $100 (Gold)</p>
+                                    <span class="activity-time">1 day ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p><strong>Robert Brown</strong> donated $25 (Bronze)</p>
+                                    <span class="activity-time">2 days ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Members Section -->
+            <section id="members" class="admin-section">
+                <div class="section-header">
+                    <h1>Members Management</h1>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" id="export-members">
+                            <i class="fas fa-download"></i> Export Members
+                        </button>
+                        <button class="btn btn-secondary" id="add-member">
+                            <i class="fas fa-plus"></i> Add Member
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters">
+                    <div class="filter-group">
+                        <label>Membership Tier:</label>
+                        <select id="tier-filter">
+                            <option value="">All Tiers</option>
+                            <option value="basic">Basic</option>
+                            <option value="silver">Silver</option>
+                            <option value="gold">Gold</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Payment Type:</label>
+                        <select id="payment-filter">
+                            <option value="">All Types</option>
+                            <option value="recurring">Recurring</option>
+                            <option value="one-time">One-time</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Search:</label>
+                        <input type="text" id="member-search" placeholder="Search by name or email">
+                    </div>
+                </div>
+
+                <!-- Members Table -->
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Tier</th>
+                                <th>Payment Type</th>
+                                <th>Join Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="members-table-body">
+                            <tr>
+                                <td>John Smith</td>
+                                <td>john.smith@email.com</td>
+                                <td><span class="badge gold">Gold</span></td>
+                                <td>Recurring</td>
+                                <td>2024-01-15</td>
+                                <td><span class="badge active">Active</span></td>
+                                <td>
+                                    <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Sarah Johnson</td>
+                                <td>sarah.j@email.com</td>
+                                <td><span class="badge silver">Silver</span></td>
+                                <td>One-time</td>
+                                <td>2024-01-10</td>
+                                <td><span class="badge active">Active</span></td>
+                                <td>
+                                    <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Mike Davis</td>
+                                <td>mike.davis@email.com</td>
+                                <td><span class="badge basic">Basic</span></td>
+                                <td>Recurring</td>
+                                <td>2024-01-08</td>
+                                <td><span class="badge active">Active</span></td>
+                                <td>
+                                    <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Donations Section -->
+            <section id="donations" class="admin-section">
+                <div class="section-header">
+                    <h1>Donations Management</h1>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" id="export-donations">
+                            <i class="fas fa-download"></i> Export Donations
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Donations Table -->
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Donor Name</th>
+                                <th>Email</th>
+                                <th>Amount</th>
+                                <th>Tier</th>
+                                <th>Payment Method</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="donations-table-body">
+                            <tr>
+                                <td>Anonymous</td>
+                                <td>anonymous@email.com</td>
+                                <td>$500</td>
+                                <td><span class="badge diamond">Diamond</span></td>
+                                <td>Stripe</td>
+                                <td>2024-01-15</td>
+                                <td><span class="badge completed">Completed</span></td>
+                                <td>
+                                    <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon" title="Send Receipt"><i class="fas fa-envelope"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Lisa Wilson</td>
+                                <td>lisa.wilson@email.com</td>
+                                <td>$100</td>
+                                <td><span class="badge gold">Gold</span></td>
+                                <td>Zelle</td>
+                                <td>2024-01-14</td>
+                                <td><span class="badge pending">Pending</span></td>
+                                <td>
+                                    <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon" title="Send Receipt"><i class="fas fa-envelope"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Robert Brown</td>
+                                <td>robert.brown@email.com</td>
+                                <td>$25</td>
+                                <td><span class="badge bronze">Bronze</span></td>
+                                <td>Stripe</td>
+                                <td>2024-01-13</td>
+                                <td><span class="badge completed">Completed</span></td>
+                                <td>
+                                    <button class="btn-icon" title="View"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-icon" title="Send Receipt"><i class="fas fa-envelope"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Content Section -->
+            <section id="content" class="admin-section">
+                <div class="section-header">
+                    <h1>Content Management</h1>
+                    <p>Update website content easily</p>
+                </div>
+
+                <div class="content-grid">
+                    <!-- Officers Management -->
+                    <div class="content-card">
+                        <h3><i class="fas fa-users-cog"></i> Officers</h3>
+                        <div class="officers-list">
+                            <div class="officer-item">
+                                <div class="officer-info">
+                                    <h4>President</h4>
+                                    <p>John Smith</p>
+                                    <p>john.smith@eastlakewolfpack.org</p>
+                                </div>
+                                <button class="btn btn-small">Edit</button>
+                            </div>
+                            <div class="officer-item">
+                                <div class="officer-info">
+                                    <h4>Vice President</h4>
+                                    <p>Sarah Johnson</p>
+                                    <p>sarah.johnson@eastlakewolfpack.org</p>
+                                </div>
+                                <button class="btn btn-small">Edit</button>
+                            </div>
+                            <div class="officer-item">
+                                <div class="officer-info">
+                                    <h4>Treasurer</h4>
+                                    <p>Mike Davis</p>
+                                    <p>treasurer@eastlakewolfpack.org</p>
+                                </div>
+                                <button class="btn btn-small">Edit</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">Add Officer</button>
+                    </div>
+
+                    <!-- Accomplishments Management -->
+                    <div class="content-card">
+                        <h3><i class="fas fa-trophy"></i> Accomplishments</h3>
+                        <div class="accomplishments-list">
+                            <div class="accomplishment-item">
+                                <h4>2023 Football State Champions</h4>
+                                <p>Eastlake Wolves won the state championship</p>
+                                <span class="date">December 2023</span>
+                                <button class="btn btn-small">Edit</button>
+                            </div>
+                            <div class="accomplishment-item">
+                                <h4>New Weight Room Equipment</h4>
+                                <p>Installed $50,000 worth of new equipment</p>
+                                <span class="date">November 2023</span>
+                                <button class="btn btn-small">Edit</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">Add Accomplishment</button>
+                    </div>
+
+                    <!-- About Page Content -->
+                    <div class="content-card">
+                        <h3><i class="fas fa-info-circle"></i> About Page</h3>
+                        <div class="content-editor">
+                            <label>Mission Statement:</label>
+                            <textarea rows="4" placeholder="Enter mission statement...">The Eastlake Wolfpack Association is dedicated to supporting and enhancing the athletic programs at Eastlake High School.</textarea>
+                            
+                            <label>Non-Profit Status:</label>
+                            <textarea rows="3" placeholder="Enter non-profit information...">We are a registered 501(c)(3) non-profit organization. All donations are tax-deductible.</textarea>
+                            
+                            <button class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section id="reports" class="admin-section">
+                <div class="section-header">
+                    <h1>Reports & Analytics</h1>
+                    <div class="section-actions">
+                        <button class="btn btn-primary" id="generate-report">
+                            <i class="fas fa-file-pdf"></i> Generate Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="reports-grid">
+                    <!-- Revenue Report -->
+                    <div class="report-card">
+                        <h3>Revenue Summary</h3>
+                        <div class="report-content">
+                            <div class="report-stat">
+                                <span class="label">Total Revenue:</span>
+                                <span class="value">$18,450</span>
+                            </div>
+                            <div class="report-stat">
+                                <span class="label">Memberships:</span>
+                                <span class="value">$9,700</span>
+                            </div>
+                            <div class="report-stat">
+                                <span class="label">Donations:</span>
+                                <span class="value">$8,750</span>
+                            </div>
+                            <div class="report-stat">
+                                <span class="label">This Month:</span>
+                                <span class="value">$2,300</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Membership Report -->
+                    <div class="report-card">
+                        <h3>Membership Breakdown</h3>
+                        <div class="report-content">
+                            <div class="report-stat">
+                                <span class="label">Basic Members:</span>
+                                <span class="value">89</span>
+                            </div>
+                            <div class="report-stat">
+                                <span class="label">Silver Members:</span>
+                                <span class="value">98</span>
+                            </div>
+                            <div class="report-stat">
+                                <span class="label">Gold Members:</span>
+                                <span class="value">60</span>
+                            </div>
+                            <div class="report-stat">
+                                <span class="label">Recurring:</span>
+                                <span class="value">180</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Donation Report -->
+                    <div class="report-card">
+                        <h3>Donation Summary</h3>
+                        <div class="report-content">
+                            <div class="report-stat">
+                                <span class="label">Bronze Donors:</span>
+                                <span class="value">45</span>
+                            </div>
+                            <div class="report-stat">
+                                <span class="label">Gold Donors:</span>
+                                <span class="value">28</span>
+                            </div>
+                            <div class="report-stat">
+                                <span class="label">Diamond Donors:</span>
+                                <span class="value">12</span>
+                            </div>
+                            <div class="report-stat">
+                                <span class="label">Custom Amounts:</span>
+                                <span class="value">15</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Reports -->
+                <div class="advanced-reports">
+                    <h3>Advanced Reports</h3>
+                    <div class="report-types">
+                        <div class="report-type">
+                            <h4>Financial Reports</h4>
+                            <button class="btn btn-secondary" onclick="generateFinancialReport()">
+                                <i class="fas fa-chart-line"></i> Monthly Financial Summary
+                            </button>
+                            <button class="btn btn-secondary" onclick="generateRevenueReport()">
+                                <i class="fas fa-dollar-sign"></i> Revenue Analysis
+                            </button>
+                            <button class="btn btn-secondary" onclick="generateTaxReport()">
+                                <i class="fas fa-receipt"></i> Tax Deduction Report
+                            </button>
+                        </div>
+                        
+                        <div class="report-type">
+                            <h4>Membership Reports</h4>
+                            <button class="btn btn-secondary" onclick="generateMembershipReport()">
+                                <i class="fas fa-users"></i> Membership Growth
+                            </button>
+                            <button class="btn btn-secondary" onclick="generateRetentionReport()">
+                                <i class="fas fa-user-check"></i> Retention Analysis
+                            </button>
+                            <button class="btn btn-secondary" onclick="generateTierReport()">
+                                <i class="fas fa-layer-group"></i> Tier Distribution
+                            </button>
+                        </div>
+                        
+                        <div class="report-type">
+                            <h4>Donation Reports</h4>
+                            <button class="btn btn-secondary" onclick="generateDonationReport()">
+                                <i class="fas fa-hand-holding-heart"></i> Donation Trends
+                            </button>
+                            <button class="btn btn-secondary" onclick="generateDonorReport()">
+                                <i class="fas fa-user-friends"></i> Donor Analysis
+                            </button>
+                            <button class="btn btn-secondary" onclick="generateRecognitionReport()">
+                                <i class="fas fa-award"></i> Recognition Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Export Options -->
+                <div class="export-section">
+                    <h3>Export Data</h3>
+                    <div class="export-options">
+                        <button class="btn btn-secondary" onclick="exportToExcel()">
+                            <i class="fas fa-file-excel"></i> Export to Excel
+                        </button>
+                        <button class="btn btn-secondary" onclick="exportToCSV()">
+                            <i class="fas fa-file-csv"></i> Export to CSV
+                        </button>
+                        <button class="btn btn-secondary" onclick="exportToPDF()">
+                            <i class="fas fa-file-pdf"></i> Export to PDF
+                        </button>
+                        <button class="btn btn-secondary" onclick="exportToJSON()">
+                            <i class="fas fa-file-code"></i> Export to JSON
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Report Scheduling -->
+                <div class="report-scheduling">
+                    <h3>Automated Reports</h3>
+                    <div class="scheduling-options">
+                        <div class="schedule-item">
+                            <label>
+                                <input type="checkbox" id="weekly-report" checked> Weekly Summary Report
+                            </label>
+                            <select id="weekly-day">
+                                <option value="monday">Monday</option>
+                                <option value="friday" selected>Friday</option>
+                            </select>
+                        </div>
+                        <div class="schedule-item">
+                            <label>
+                                <input type="checkbox" id="monthly-report" checked> Monthly Financial Report
+                            </label>
+                            <select id="monthly-day">
+                                <option value="1">1st of month</option>
+                                <option value="15" selected>15th of month</option>
+                            </select>
+                        </div>
+                        <div class="schedule-item">
+                            <label>
+                                <input type="checkbox" id="quarterly-report"> Quarterly Board Report
+                            </label>
+                            <select id="quarterly-month">
+                                <option value="jan">January</option>
+                                <option value="apr" selected>April</option>
+                                <option value="jul">July</option>
+                                <option value="oct">October</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" onclick="saveReportSchedule()">
+                            <i class="fas fa-save"></i> Save Schedule
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 1099 Vendors Section -->
+            <section id="vendors" class="admin-section">
+                <div class="section-header">
+                    <h1>1099 Vendor Management</h1>
+                    <p>Track vendors and contractors for IRS 1099 reporting</p>
+                </div>
+
+                <div class="vendors-container">
+                    <!-- Add New Vendor -->
+                    <div class="vendor-form-card">
+                        <h3>Add New Vendor/Contractor</h3>
+                        <form id="vendor-form" class="vendor-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="vendor-name">Legal Business Name *</label>
+                                    <input type="text" id="vendor-name" name="vendorName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vendor-tin">Tax ID Number (EIN/SSN) *</label>
+                                    <input type="text" id="vendor-tin" name="vendorTIN" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vendor-address">Business Address *</label>
+                                    <input type="text" id="vendor-address" name="vendorAddress" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vendor-city">City *</label>
+                                    <input type="text" id="vendor-city" name="vendorCity" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vendor-state">State *</label>
+                                    <input type="text" id="vendor-state" name="vendorState" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vendor-zip">ZIP Code *</label>
+                                    <input type="text" id="vendor-zip" name="vendorZIP" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vendor-phone">Phone Number</label>
+                                    <input type="tel" id="vendor-phone" name="vendorPhone">
+                                </div>
+                                <div class="form-group">
+                                    <label for="vendor-email">Email Address</label>
+                                    <input type="email" id="vendor-email" name="vendorEmail">
+                                </div>
+                                <div class="form-group">
+                                    <label for="vendor-services">Services Provided</label>
+                                    <textarea id="vendor-services" name="vendorServices" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="vendor-booster">Booster Club</label>
+                                    <select id="vendor-booster" name="vendorBooster">
+                                        <option value="">Select Booster Club</option>
+                                        <option value="cheer">Cheer</option>
+                                        <option value="dance">Dance</option>
+                                        <option value="softball">Softball</option>
+                                        <option value="boys-soccer">Boys Soccer</option>
+                                        <option value="girls-soccer">Girls Soccer</option>
+                                        <option value="boys-swim-dive">Boys Swim and Dive</option>
+                                        <option value="girls-swim-dive">Girls Swim and Dive</option>
+                                        <option value="wrestling">Wrestling</option>
+                                        <option value="robotics">Robotics</option>
+                                        <option value="volleyball">Volleyball</option>
+                                        <option value="boys-basketball">Boys Basketball</option>
+                                        <option value="girls-basketball">Girls Basketball</option>
+                                        <option value="boys-golf">Boys Golf</option>
+                                        <option value="girls-golf">Girls Golf</option>
+                                        <option value="decca">DECCA</option>
+                                        <option value="theater">Theater</option>
+                                        <option value="choir">Choir</option>
+                                        <option value="gymnastics">Gymnastics</option>
+                                        <option value="orchestra">Orchestra</option>
+                                        <option value="band">Band</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-plus"></i> Add Vendor
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Vendors Table -->
+                    <div class="vendors-table-card">
+                        <div class="table-header">
+                            <h3>Vendors & Contractors</h3>
+                            <div class="table-actions">
+                                <button class="btn btn-outline" onclick="exportVendors()">
+                                    <i class="fas fa-download"></i> Export 1099 Data
+                                </button>
+                                <button class="btn btn-outline" onclick="generate1099Forms()">
+                                    <i class="fas fa-file-pdf"></i> Generate 1099 Forms
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table class="admin-table" id="vendors-table">
+                                <thead>
+                                    <tr>
+                                        <th>Business Name</th>
+                                        <th>Tax ID</th>
+                                        <th>Address</th>
+                                        <th>Booster Club</th>
+                                        <th>Services</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Dirk Huebner Training</td>
+                                        <td>12-3456789</td>
+                                        <td>123 Main St, Sammamish, WA 98074</td>
+                                        <td><span class="badge">Cross Country</span></td>
+                                        <td>Strength Training</td>
+                                        <td>
+                                            <button class="btn-icon" onclick="editVendor(1)">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn-icon" onclick="deleteVendor(1)">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Insurance Section -->
+            <section id="insurance" class="admin-section">
+                <div class="section-header">
+                    <h1>Insurance Activity Management</h1>
+                    <p>Collect and manage insurance information for booster club activities</p>
+                </div>
+
+                <div class="insurance-container">
+                    <!-- Insurance Form -->
+                    <div class="insurance-form-card">
+                        <h3>Insurance Activity Information</h3>
+                        <form id="insurance-form" class="insurance-form">
+                            <div class="form-section">
+                                <h4>Booster Club Information</h4>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="insurance-booster">Booster Club *</label>
+                                        <select id="insurance-booster" name="insuranceBooster" required>
+                                            <option value="">Select Booster Club</option>
+                                            <option value="cheer">Cheer</option>
+                                            <option value="dance">Dance</option>
+                                            <option value="softball">Softball</option>
+                                            <option value="boys-soccer">Boys Soccer</option>
+                                            <option value="girls-soccer">Girls Soccer</option>
+                                            <option value="boys-swim-dive">Boys Swim and Dive</option>
+                                            <option value="girls-swim-dive">Girls Swim and Dive</option>
+                                            <option value="wrestling">Wrestling</option>
+                                            <option value="robotics">Robotics</option>
+                                            <option value="volleyball">Volleyball</option>
+                                            <option value="boys-basketball">Boys Basketball</option>
+                                            <option value="girls-basketball">Girls Basketball</option>
+                                            <option value="boys-golf">Boys Golf</option>
+                                            <option value="girls-golf">Girls Golf</option>
+                                            <option value="decca">DECCA</option>
+                                            <option value="theater">Theater</option>
+                                            <option value="choir">Choir</option>
+                                            <option value="gymnastics">Gymnastics</option>
+                                            <option value="orchestra">Orchestra</option>
+                                            <option value="band">Band</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="insurance-contact">Contact Name *</label>
+                                        <input type="text" id="insurance-contact" name="insuranceContact" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="insurance-phone">Cell Phone *</label>
+                                        <input type="tel" id="insurance-phone" name="insurancePhone" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="insurance-email">Email *</label>
+                                        <input type="email" id="insurance-email" name="insuranceEmail" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4>Financial Information</h4>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="insurance-contributions">Contributions/Donations (Line 2)</label>
+                                        <input type="number" id="insurance-contributions" name="insuranceContributions" step="0.01">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="insurance-fundraising">Fundraising Revenue (Line 3)</label>
+                                        <input type="number" id="insurance-fundraising" name="insuranceFundraising" step="0.01">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="insurance-concessions">Food Concessions Revenue</label>
+                                        <input type="number" id="insurance-concessions" name="insuranceConcessions" step="0.01">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4>Fundraisers (Open to Public)</h4>
+                                <div id="fundraisers-container">
+                                    <div class="event-item">
+                                        <div class="form-grid">
+                                            <div class="form-group">
+                                                <label>Type of Event</label>
+                                                <input type="text" name="fundraiserType[]" placeholder="e.g., Auction, Dinner">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Date</label>
+                                                <input type="date" name="fundraiserDate[]">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Food Served?</label>
+                                                <select name="fundraiserFood[]">
+                                                    <option value="no">No</option>
+                                                    <option value="yes">Yes</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Alcohol Served?</label>
+                                                <select name="fundraiserAlcohol[]">
+                                                    <option value="no">No</option>
+                                                    <option value="yes">Yes</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Location</label>
+                                                <input type="text" name="fundraiserLocation[]" placeholder="Onsite/Offsite">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Certificate of Insurance Required?</label>
+                                                <select name="fundraiserCOI[]">
+                                                    <option value="no">No</option>
+                                                    <option value="yes">Yes</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-outline" onclick="addFundraiser()">
+                                    <i class="fas fa-plus"></i> Add Fundraiser
+                                </button>
+                            </div>
+
+                            <div class="form-section">
+                                <h4>Camps/Clinics</h4>
+                                <div id="camps-container">
+                                    <div class="event-item">
+                                        <div class="form-grid">
+                                            <div class="form-group">
+                                                <label>Type of Camp/Clinic</label>
+                                                <input type="text" name="campType[]" placeholder="e.g., Summer Camp">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Start Date</label>
+                                                <input type="date" name="campStart[]">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>End Date</label>
+                                                <input type="date" name="campEnd[]">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Number of Sessions</label>
+                                                <input type="number" name="campSessions[]">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Length of Each Session</label>
+                                                <input type="text" name="campLength[]" placeholder="e.g., 2 hours">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Estimated Participants</label>
+                                                <input type="number" name="campParticipants[]">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Age Group</label>
+                                                <input type="text" name="campAgeGroup[]" placeholder="e.g., grades 9-12">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>3rd Party Vendor?</label>
+                                                <select name="campVendor[]">
+                                                    <option value="no">No</option>
+                                                    <option value="yes">Yes</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Vendor Name</label>
+                                                <input type="text" name="campVendorName[]">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Vendor Provides Insurance?</label>
+                                                <select name="campVendorInsurance[]">
+                                                    <option value="no">No</option>
+                                                    <option value="yes">Yes</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-outline" onclick="addCamp()">
+                                    <i class="fas fa-plus"></i> Add Camp/Clinic
+                                </button>
+                            </div>
+
+                            <div class="form-section">
+                                <h4>Conditioning/Training</h4>
+                                <div id="conditioning-container">
+                                    <div class="event-item">
+                                        <div class="form-grid">
+                                            <div class="form-group">
+                                                <label>Type of Conditioning</label>
+                                                <input type="text" name="conditioningType[]" placeholder="e.g., Summer Strength Training">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Start Date</label>
+                                                <input type="date" name="conditioningStart[]">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>End Date</label>
+                                                <input type="date" name="conditioningEnd[]">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Number of Sessions</label>
+                                                <input type="number" name="conditioningSessions[]">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Length of Each Session</label>
+                                                <input type="text" name="conditioningLength[]" placeholder="e.g., 1.5 hours">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Location</label>
+                                                <input type="text" name="conditioningLocation[]" placeholder="Onsite/Offsite">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Estimated Participants</label>
+                                                <input type="number" name="conditioningParticipants[]">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Age Group</label>
+                                                <input type="text" name="conditioningAgeGroup[]" placeholder="e.g., grades 9-12">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>3rd Party Vendor?</label>
+                                                <select name="conditioningVendor[]">
+                                                    <option value="no">No</option>
+                                                    <option value="yes">Yes</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Vendor Name</label>
+                                                <input type="text" name="conditioningVendorName[]">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Vendor Provides Insurance?</label>
+                                                <select name="conditioningVendorInsurance[]">
+                                                    <option value="no">No</option>
+                                                    <option value="yes">Yes</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-outline" onclick="addConditioning()">
+                                    <i class="fas fa-plus"></i> Add Conditioning/Training
+                                </button>
+                            </div>
+
+                            <div class="form-section">
+                                <h4>Hosting Events/Invitationals/Competitions</h4>
+                                <div id="hosting-container">
+                                    <div class="event-item">
+                                        <div class="form-grid">
+                                            <div class="form-group">
+                                                <label>Type of Event</label>
+                                                <input type="text" name="hostingType[]" placeholder="e.g., Pumpkin Dash">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Start Date</label>
+                                                <input type="date" name="hostingStart[]">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>End Date</label>
+                                                <input type="date" name="hostingEnd[]">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Estimated Participants by Age Group</label>
+                                                <textarea name="hostingParticipants[]" rows="2" placeholder="e.g., ~75 elementary school kids"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-outline" onclick="addHosting()">
+                                    <i class="fas fa-plus"></i> Add Hosting Event
+                                </button>
+                            </div>
+
+                            <div class="form-section">
+                                <h4>Team Dinners and Banquets</h4>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label>Estimated Number of Events</label>
+                                        <input type="number" name="banquetEvents" min="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Food Preparations</label>
+                                        <textarea name="banquetFood" rows="2" placeholder="e.g., Catered by restaurant and purchased at grocery store"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Types of Products Served</label>
+                                        <textarea name="banquetProducts" rows="2" placeholder="e.g., Dinner, Dessert (no alcohol)"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Location</label>
+                                        <input type="text" name="banquetLocation" placeholder="e.g., Eastlake High School">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Certificate of Insurance Required?</label>
+                                        <select name="banquetCOI">
+                                            <option value="no">No</option>
+                                            <option value="yes">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4>Game Night Concessions</h4>
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label>Estimated Number of Game Nights</label>
+                                        <input type="number" name="concessionsNights" min="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Possible Game Night Concessions</label>
+                                        <textarea name="concessionsTypes" rows="3" placeholder="e.g., Football in the fall, Soccer and Track in the spring"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> Save Insurance Information
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Booster Club Management Section -->
+            <section id="booster-management" class="admin-section">
+                <div class="section-header">
+                    <h1>Booster Club Management</h1>
+                    <p>Manage all booster clubs and their settings</p>
+                </div>
+
+                <div class="booster-management-container">
+                    <!-- Club Selector -->
+                    <div class="club-selector-section">
+                        <h3>Select Club to Manage</h3>
+                        <div class="club-grid">
+                            <div class="club-card" data-club="cheer">
+                                <div class="club-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <h4>Cheer</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="cheer-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('cheer')">
+                                    Manage Club
+                                </button>
+                            </div>
+
+                            <div class="club-card" data-club="dance">
+                                <div class="club-icon">
+                                    <i class="fas fa-music"></i>
+                                </div>
+                                <h4>Dance</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="dance-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('dance')">
+                                    Manage Club
+                                </button>
+                            </div>
+
+                            <div class="club-card" data-club="softball">
+                                <div class="club-icon">
+                                    <i class="fas fa-baseball-ball"></i>
+                                </div>
+                                <h4>Softball</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="softball-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('softball')">
+                                    Manage Club
+                                </button>
+                            </div>
+
+                            <div class="club-card" data-club="boyssoccer">
+                                <div class="club-icon">
+                                    <i class="fas fa-futbol"></i>
+                                </div>
+                                <h4>Boys Soccer</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="boyssoccer-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('boyssoccer')">
+                                    Manage Club
+                                </button>
+                            </div>
+
+                            <div class="club-card" data-club="girlssoccer">
+                                <div class="club-icon">
+                                    <i class="fas fa-futbol"></i>
+                                </div>
+                                <h4>Girls Soccer</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="girlssoccer-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('girlssoccer')">
+                                    Manage Club
+                                </button>
+                            </div>
+
+                            <div class="club-card" data-club="boysswim">
+                                <div class="club-icon">
+                                    <i class="fas fa-swimming-pool"></i>
+                                </div>
+                                <h4>Boys Swim & Dive</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="boysswim-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('boysswim')">
+                                    Manage Club
+                                </button>
+                            </div>
+
+                            <div class="club-card" data-club="girlsswim">
+                                <div class="club-icon">
+                                    <i class="fas fa-swimming-pool"></i>
+                                </div>
+                                <h4>Girls Swim & Dive</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="girlsswim-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('girlsswim')">
+                                    Manage Club
+                                </button>
+                            </div>
+
+                            <div class="club-card" data-club="wrestling">
+                                <div class="club-icon">
+                                    <i class="fas fa-hand-rock"></i>
+                                </div>
+                                <h4>Wrestling</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="wrestling-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('wrestling')">
+                                    Manage Club
+                                </button>
+                            </div>
+
+                            <div class="club-card" data-club="robotics">
+                                <div class="club-icon">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <h4>Robotics</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="robotics-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('robotics')">
+                                    Manage Club
+                                </button>
+                            </div>
+
+                            <div class="club-card" data-club="volleyball">
+                                <div class="club-icon">
+                                    <i class="fas fa-volleyball-ball"></i>
+                                </div>
+                                <h4>Volleyball</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="volleyball-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('volleyball')">
+                                    Manage Club
+                                </button>
+                            </div>
+
+                            <div class="club-card" data-club="boysbasketball">
+                                <div class="club-icon">
+                                    <i class="fas fa-basketball-ball"></i>
+                                </div>
+                                <h4>Boys Basketball</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="boysbasketball-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('boysbasketball')">
+                                    Manage Club
+                                </button>
+                            </div>
+
+                            <div class="club-card" data-club="girlsbasketball">
+                                <div class="club-icon">
+                                    <i class="fas fa-basketball-ball"></i>
+                                </div>
+                                <h4>Girls Basketball</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="girlsbasketball-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('girlsbasketball')">
+                                    Manage Club
+                                </button>
+                            </div>
+
+                            <div class="club-card" data-club="boysgolf">
+                                <div class="club-icon">
+                                    <i class="fas fa-golf-ball"></i>
+                                </div>
+                                <h4>Boys Golf</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="boysgolf-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('boysgolf')">
+                                    Manage Club
+                                </button>
+                            </div>
+
+                            <div class="club-card" data-club="girlsgolf">
+                                <div class="club-icon">
+                                    <i class="fas fa-golf-ball"></i>
+                                </div>
+                                <h4>Girls Golf</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="girlsgolf-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('girlsgolf')">
+                                    Manage Club
+                                </button>
+                            </div>
+
+                            <div class="club-card" data-club="decca">
+                                <div class="club-icon">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                                <h4>DECCA</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="decca-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('decca')">
+                                    Manage Club
+                                </button>
+                            </div>
+
+                            <div class="club-card" data-club="theater">
+                                <div class="club-icon">
+                                    <i class="fas fa-theater-masks"></i>
+                                </div>
+                                <h4>Theater</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="theater-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('theater')">
+                                    Manage Club
+                                </button>
+                            </div>
+
+                            <div class="club-card" data-club="choir">
+                                <div class="club-icon">
+                                    <i class="fas fa-microphone"></i>
+                                </div>
+                                <h4>Choir</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="choir-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('choir')">
+                                    Manage Club
+                                </button>
+                            </div>
+
+                            <div class="club-card" data-club="gymnastics">
+                                <div class="club-icon">
+                                    <i class="fas fa-running"></i>
+                                </div>
+                                <h4>Gymnastics</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="gymnastics-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('gymnastics')">
+                                    Manage Club
+                                </button>
+                            </div>
+
+                            <div class="club-card" data-club="orchestra">
+                                <div class="club-icon">
+                                    <i class="fas fa-music"></i>
+                                </div>
+                                <h4>Orchestra</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="orchestra-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('orchestra')">
+                                    Manage Club
+                                </button>
+                            </div>
+
+                            <div class="club-card" data-club="band">
+                                <div class="club-icon">
+                                    <i class="fas fa-drum"></i>
+                                </div>
+                                <h4>Band</h4>
+                                <div class="club-status">
+                                    <span class="status-badge" id="band-status">Not Configured</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="selectClub('band')">
+                                    Manage Club
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Club Management Interface -->
+                    <div id="club-management-interface" class="club-management-interface" style="display: none;">
+                        <div class="management-header">
+                            <h3>Managing: <span id="current-club-name">No club selected</span></h3>
+                            <div class="management-actions">
+                                <button class="btn btn-primary" onclick="actOnBehalf()" id="act-on-behalf-btn">
+                                    <i class="fas fa-user-shield"></i> Act on Behalf
+                                </button>
+                                <button class="btn btn-outline" onclick="closeClubManagement()">
+                                    <i class="fas fa-times"></i> Close
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="management-tabs">
+                            <button class="tab-btn active" data-tab="payment-settings">
+                                <i class="fas fa-credit-card"></i> Payment Settings
+                            </button>
+                            <button class="tab-btn" data-tab="content-settings">
+                                <i class="fas fa-edit"></i> Content Settings
+                            </button>
+                            <button class="tab-btn" data-tab="donation-tiers">
+                                <i class="fas fa-layer-group"></i> Donation Tiers
+                            </button>
+                        </div>
+
+                        <!-- Payment Settings Tab -->
+                        <div id="payment-settings" class="tab-content active">
+                            <div class="settings-card">
+                                <h4>Zelle Payment Configuration</h4>
+                                <form id="admin-payment-form">
+                                    <div class="form-group">
+                                        <label for="admin-zelle-email">Zelle Email Address</label>
+                                        <input type="email" id="admin-zelle-email" placeholder="Enter Zelle email address">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="admin-zelle-name">Zelle Display Name</label>
+                                        <input type="text" id="admin-zelle-name" placeholder="Enter display name">
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" onclick="saveAdminPaymentSettings()">
+                                            <i class="fas fa-save"></i> Save Payment Settings
+                                        </button>
+                                        <button type="button" class="btn btn-secondary" onclick="resetAdminPaymentSettings()">
+                                            <i class="fas fa-undo"></i> Reset to Default
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Content Settings Tab -->
+                        <div id="content-settings" class="tab-content">
+                            <div class="settings-card">
+                                <h4>Club Content Configuration</h4>
+                                <form id="admin-content-form">
+                                    <div class="form-group">
+                                        <label for="admin-club-description">Club Description</label>
+                                        <textarea id="admin-club-description" rows="4" placeholder="Enter club description"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="admin-donation-appeal">Donation Appeal Message</label>
+                                        <textarea id="admin-donation-appeal" rows="4" placeholder="Enter donation appeal message"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="admin-thank-you">Thank You Message</label>
+                                        <textarea id="admin-thank-you" rows="4" placeholder="Enter thank you message"></textarea>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" onclick="saveAdminContentSettings()">
+                                            <i class="fas fa-save"></i> Save Content Settings
+                                        </button>
+                                        <button type="button" class="btn btn-secondary" onclick="resetAdminContentSettings()">
+                                            <i class="fas fa-undo"></i> Reset to Default
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Donation Tiers Tab -->
+                        <div id="donation-tiers" class="tab-content">
+                            <div class="settings-card">
+                                <h4>Donation Tiers Configuration</h4>
+                                <form id="admin-tiers-form">
+                                    <div class="tiers-grid">
+                                        <div class="tier-item">
+                                            <h5>Bronze Tier</h5>
+                                            <div class="form-group">
+                                                <label for="admin-bronze-amount">Amount ($)</label>
+                                                <input type="number" id="admin-bronze-amount" value="25">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="admin-bronze-title">Title</label>
+                                                <input type="text" id="admin-bronze-title" value="Bronze Supporter">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="admin-bronze-description">Description</label>
+                                                <textarea id="admin-bronze-description" rows="3">Basic supporter level with recognition on website.</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="tier-item">
+                                            <h5>Silver Tier</h5>
+                                            <div class="form-group">
+                                                <label for="admin-silver-amount">Amount ($)</label>
+                                                <input type="number" id="admin-silver-amount" value="50">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="admin-silver-title">Title</label>
+                                                <input type="text" id="admin-silver-title" value="Silver Supporter">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="admin-silver-description">Description</label>
+                                                <textarea id="admin-silver-description" rows="3">Enhanced supporter level with additional benefits.</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="tier-item">
+                                            <h5>Gold Tier</h5>
+                                            <div class="form-group">
+                                                <label for="admin-gold-amount">Amount ($)</label>
+                                                <input type="number" id="admin-gold-amount" value="100">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="admin-gold-title">Title</label>
+                                                <input type="text" id="admin-gold-title" value="Gold Supporter">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="admin-gold-description">Description</label>
+                                                <textarea id="admin-gold-description" rows="3">Premium supporter level with exclusive benefits.</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="tier-item">
+                                            <h5>Diamond Tier</h5>
+                                            <div class="form-group">
+                                                <label for="admin-diamond-amount">Amount ($)</label>
+                                                <input type="number" id="admin-diamond-amount" value="250">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="admin-diamond-title">Title</label>
+                                                <input type="text" id="admin-diamond-title" value="Diamond Supporter">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="admin-diamond-description">Description</label>
+                                                <textarea id="admin-diamond-description" rows="3">Elite supporter level with maximum benefits and recognition.</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="button" class="btn btn-primary" onclick="saveAdminTiersSettings()">
+                                            <i class="fas fa-save"></i> Save Tiers Settings
+                                        </button>
+                                        <button type="button" class="btn btn-secondary" onclick="resetAdminTiersSettings()">
+                                            <i class="fas fa-undo"></i> Reset to Default
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Act on Behalf Section -->
+                    <div class="act-on-behalf-section">
+                        <h3>Act on Behalf of Booster Club Admins</h3>
+                        <p>When booster club admins need assistance, you can log in as them to help manage their settings.</p>
+                        
+                        <div class="behalf-login-form">
+                            <div class="form-group">
+                                <label for="behalf-club-select">Select Booster Club:</label>
+                                <select id="behalf-club-select" onchange="updateBehalfCredentials()">
+                                    <option value="">-- Select a Booster Club --</option>
+                                    <option value="cheer">Cheer</option>
+                                    <option value="dance">Dance</option>
+                                    <option value="softball">Softball</option>
+                                    <option value="boyssoccer">Boys Soccer</option>
+                                    <option value="girlssoccer">Girls Soccer</option>
+                                    <option value="boysswim">Boys Swim & Dive</option>
+                                    <option value="girlsswim">Girls Swim & Dive</option>
+                                    <option value="wrestling">Wrestling</option>
+                                    <option value="robotics">Robotics</option>
+                                    <option value="volleyball">Volleyball</option>
+                                    <option value="boysbasketball">Boys Basketball</option>
+                                    <option value="girlsbasketball">Girls Basketball</option>
+                                    <option value="boysgolf">Boys Golf</option>
+                                    <option value="girlsgolf">Girls Golf</option>
+                                    <option value="decca">DECCA</option>
+                                    <option value="theater">Theater</option>
+                                    <option value="choir">Choir</option>
+                                    <option value="gymnastics">Gymnastics</option>
+                                    <option value="orchestra">Orchestra</option>
+                                    <option value="band">Band</option>
+                                </select>
+                            </div>
+                            
+                            <div class="credentials-display" id="credentials-display" style="display: none;">
+                                <div class="credential-info">
+                                    <h4>Club Admin Credentials:</h4>
+                                    <div class="credential-item">
+                                        <strong>Username:</strong> <span id="behalf-username"></span>
+                                    </div>
+                                    <div class="credential-item">
+                                        <strong>Password:</strong> <span id="behalf-password"></span>
+                                    </div>
+                                    <div class="credential-note">
+                                        <i class="fas fa-info-circle"></i>
+                                        Use these credentials to log in at the <a href="booster-login.html" target="_blank">Booster Club Login</a> page
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="behalf-actions">
+                                <button class="btn btn-primary" onclick="openBoosterLogin()" id="open-login-btn" disabled>
+                                    <i class="fas fa-external-link-alt"></i> Open Booster Login
+                                </button>
+                                <button class="btn btn-secondary" onclick="resetBehalfSelection()">
+                                    <i class="fas fa-undo"></i> Reset Selection
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="behalf-help-section">
+                            <h4>How to Help Booster Club Admins:</h4>
+                            <div class="help-steps">
+                                <div class="help-step">
+                                    <span class="step-number">1</span>
+                                    <p>Select the booster club that needs assistance</p>
+                                </div>
+                                <div class="help-step">
+                                    <span class="step-number">2</span>
+                                    <p>Use the provided credentials to log in as that club's admin</p>
+                                </div>
+                                <div class="help-step">
+                                    <span class="step-number">3</span>
+                                    <p>Make the necessary changes to their settings</p>
+                                </div>
+                                <div class="help-step">
+                                    <span class="step-number">4</span>
+                                    <p>Log out and inform the club admin of the changes made</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bulk Operations -->
+                    <div class="bulk-operations-section">
+                        <h3>Bulk Operations</h3>
+                        <div class="bulk-operations-grid">
+                            <div class="bulk-operation-card">
+                                <h4>Bulk Payment Override</h4>
+                                <p>Apply the same Zelle settings to multiple clubs:</p>
+                                <form id="bulk-payment-form">
+                                    <div class="form-group">
+                                        <label for="bulk-zelle-email">Zelle Email</label>
+                                        <input type="email" id="bulk-zelle-email" placeholder="Enter Zelle email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bulk-zelle-name">Display Name</label>
+                                        <input type="text" id="bulk-zelle-name" placeholder="Enter display name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Select Clubs:</label>
+                                        <div class="club-checkboxes" id="bulk-club-checkboxes">
+                                            <!-- Club checkboxes will be populated here -->
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" onclick="applyBulkPaymentOverride()">
+                                        <i class="fas fa-copy"></i> Apply to Selected Clubs
+                                    </button>
+                                </form>
+                            </div>
+
+                            <div class="bulk-operation-card">
+                                <h4>Bulk Content Override</h4>
+                                <p>Apply the same content settings to multiple clubs:</p>
+                                <form id="bulk-content-form">
+                                    <div class="form-group">
+                                        <label for="bulk-club-description">Club Description</label>
+                                        <textarea id="bulk-club-description" rows="3" placeholder="Enter club description"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bulk-donation-appeal">Donation Appeal</label>
+                                        <textarea id="bulk-donation-appeal" rows="3" placeholder="Enter donation appeal"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bulk-thank-you">Thank You Message</label>
+                                        <textarea id="bulk-thank-you" rows="3" placeholder="Enter thank you message"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Select Clubs:</label>
+                                        <div class="club-checkboxes" id="bulk-content-checkboxes">
+                                            <!-- Club checkboxes will be populated here -->
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" onclick="applyBulkContentOverride()">
+                                        <i class="fas fa-copy"></i> Apply to Selected Clubs
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Admin Logs Section -->
+            <section id="admin-logs" class="admin-section">
+                <div class="section-header">
+                    <h1>Administrative Activity Logs</h1>
+                    <p>Track and monitor all administrative activities</p>
+                </div>
+
+                <div class="logs-container">
+                    <!-- Log Controls -->
+                    <div class="logs-controls">
+                        <div class="log-filters">
+                            <div class="filter-group">
+                                <label for="log-user-filter">Filter by User:</label>
+                                <select id="log-user-filter">
+                                    <option value="">All Users</option>
+                                    <option value="admin">Main Admin</option>
+                                    <option value="booster-admin">Booster Club Admin</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="log-action-filter">Filter by Action:</label>
+                                <select id="log-action-filter">
+                                    <option value="">All Actions</option>
+                                    <option value="login">Login</option>
+                                    <option value="logout">Logout</option>
+                                    <option value="create">Create</option>
+                                    <option value="update">Update</option>
+                                    <option value="delete">Delete</option>
+                                    <option value="export">Export</option>
+                                    <option value="import">Import</option>
+                                    <option value="settings">Settings Change</option>
+                                    <option value="booster-management">Booster Management</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="log-date-filter">Date Range:</label>
+                                <input type="date" id="log-date-from" placeholder="From">
+                                <input type="date" id="log-date-to" placeholder="To">
+                            </div>
+                        </div>
+                        <div class="log-actions">
+                            <button class="btn btn-primary" onclick="refreshLogs()">
+                                <i class="fas fa-sync-alt"></i> Refresh Logs
+                            </button>
+                            <button class="btn btn-secondary" onclick="clearLogFilters()">
+                                <i class="fas fa-filter"></i> Clear Filters
+                            </button>
+                            <button class="btn btn-outline" onclick="exportLogs()">
+                                <i class="fas fa-download"></i> Export Logs
+                            </button>
+                            <button class="btn btn-outline" onclick="downloadLogFile()">
+                                <i class="fas fa-file-download"></i> Download Log File
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Log Statistics -->
+                    <div class="log-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>Total Log Entries</h3>
+                                <p class="stat-number" id="total-logs">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>Active Users</h3>
+                                <p class="stat-number" id="active-users">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>Today's Activities</h3>
+                                <p class="stat-number" id="today-activities">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>Critical Actions</h3>
+                                <p class="stat-number" id="critical-actions">0</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Log Table -->
+                    <div class="logs-table-container">
+                        <div class="table-header">
+                            <h3>Activity Log Entries</h3>
+                            <div class="table-actions">
+                                <button class="btn btn-small" onclick="clearAllLogs()">
+                                    <i class="fas fa-trash"></i> Clear All Logs
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-container">
+                            <table class="admin-table" id="logs-table">
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>User</th>
+                                        <th>Action</th>
+                                        <th>Details</th>
+                                        <th>IP Address</th>
+                                        <th>User Agent</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="logs-table-body">
+                                    <!-- Log entries will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Log Configuration -->
+                    <div class="log-configuration">
+                        <h3>Logging Configuration</h3>
+                        <div class="config-grid">
+                            <div class="config-item">
+                                <label>
+                                    <input type="checkbox" id="log-logins" checked> Log Login/Logout Events
+                                </label>
+                            </div>
+                            <div class="config-item">
+                                <label>
+                                    <input type="checkbox" id="log-settings" checked> Log Settings Changes
+                                </label>
+                            </div>
+                            <div class="config-item">
+                                <label>
+                                    <input type="checkbox" id="log-booster" checked> Log Booster Club Management
+                                </label>
+                            </div>
+                            <div class="config-item">
+                                <label>
+                                    <input type="checkbox" id="log-exports" checked> Log Export/Import Actions
+                                </label>
+                            </div>
+                            <div class="config-item">
+                                <label>
+                                    <input type="checkbox" id="log-critical" checked> Log Critical Actions
+                                </label>
+                            </div>
+                            <div class="config-item">
+                                <label>
+                                    <input type="checkbox" id="log-user-agent"> Log User Agent Details
+                                </label>
+                            </div>
+                        </div>
+                        <div class="config-actions">
+                            <button class="btn btn-primary" onclick="saveLogConfig()">
+                                <i class="fas fa-save"></i> Save Configuration
+                            </button>
+                            <button class="btn btn-secondary" onclick="resetLogConfig()">
+                                <i class="fas fa-undo"></i> Reset to Default
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="admin-section">
+                <div class="section-header">
+                    <h1>Settings</h1>
+                    <p>Manage your admin preferences</p>
+                </div>
+
+                <div class="settings-grid">
+                    <!-- General Settings -->
+                    <div class="settings-card">
+                        <h3>General Settings</h3>
+                        <div class="setting-item">
+                            <label>Organization Name:</label>
+                            <input type="text" value="Eastlake Wolfpack Association">
+                        </div>
+                        <div class="setting-item">
+                            <label>Contact Email:</label>
+                            <input type="email" value="info@eastlakewolfpack.org">
+                        </div>
+                        <div class="setting-item">
+                            <label>Phone Number:</label>
+                            <input type="tel" value="(425) 123-4567">
+                        </div>
+                        <button class="btn btn-primary">Save Settings</button>
+                    </div>
+
+                    <!-- Payment Settings -->
+                    <div class="settings-card">
+                        <h3>Payment Settings</h3>
+                        <div class="setting-item">
+                            <label>Stripe Publishable Key:</label>
+                            <input type="text" value="pk_test_..." placeholder="Enter Stripe key">
+                        </div>
+                        <div class="setting-item">
+                            <label>Zelle Email:</label>
+                            <input type="email" value="treasurer@eastlakewolfpack.org">
+                        </div>
+                        <div class="setting-item">
+                            <label>Tax ID (EIN):</label>
+                            <input type="text" value="77-0616862" placeholder="Enter EIN">
+                        </div>
+                        <button class="btn btn-primary">Save Payment Settings</button>
+                    </div>
+
+                    <!-- Notification Settings -->
+                    <div class="settings-card">
+                        <h3>Notification Settings</h3>
+                        <div class="setting-item">
+                            <label>
+                                <input type="checkbox" checked> Email notifications for new memberships
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>
+                                <input type="checkbox" checked> Email notifications for donations
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>
+                                <input type="checkbox"> Weekly summary reports
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>
+                                <input type="checkbox" checked> Monthly financial reports
+                            </label>
+                        </div>
+                        <button class="btn btn-primary">Save Notification Settings</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Database Management Section -->
+            <section id="database" class="admin-section">
+                <div class="section-header">
+                    <h1>Database Management</h1>
+                    <p>Manage local database and prepare for MySQL migration</p>
+                </div>
+
+                <div class="database-container">
+                    <!-- Database Status -->
+                    <div class="database-status-card">
+                        <h3><i class="fas fa-info-circle"></i> Database Status</h3>
+                        <div class="status-grid">
+                            <div class="status-item">
+                                <span class="status-label">Mode:</span>
+                                <span class="status-value" id="db-mode">Local (IndexedDB)</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">Status:</span>
+                                <span class="status-value" id="db-status">Connected</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">Version:</span>
+                                <span class="status-value" id="db-version">1.0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Database Statistics -->
+                    <div class="database-stats-card">
+                        <h3><i class="fas fa-chart-bar"></i> Database Statistics</h3>
+                        <div class="stats-grid" id="db-stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-label">Members</span>
+                                <span class="stat-value" id="members-count">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Donations</span>
+                                <span class="stat-value" id="donations-count">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Vendors</span>
+                                <span class="stat-value" id="vendors-count">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Booster Clubs</span>
+                                <span class="stat-value" id="clubs-count">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Admin Logs</span>
+                                <span class="stat-value" id="logs-count">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Settings</span>
+                                <span class="stat-value" id="settings-count">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Database Operations -->
+                    <div class="database-operations-card">
+                        <h3><i class="fas fa-tools"></i> Database Operations</h3>
+                        <div class="operations-grid">
+                            <div class="operation-item">
+                                <h4>Backup & Restore</h4>
+                                <p>Create and restore database backups</p>
+                                <div class="operation-buttons">
+                                    <button class="btn btn-primary" onclick="createDatabaseBackup()">
+                                        <i class="fas fa-download"></i> Create Backup
+                                    </button>
+                                    <button class="btn btn-secondary" onclick="restoreDatabaseBackup()">
+                                        <i class="fas fa-upload"></i> Restore Backup
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="operation-item">
+                                <h4>Data Export</h4>
+                                <p>Export data in various formats</p>
+                                <div class="operation-buttons">
+                                    <button class="btn btn-primary" onclick="exportDatabaseData()">
+                                        <i class="fas fa-file-export"></i> Export All Data
+                                    </button>
+                                    <button class="btn btn-secondary" onclick="exportMySQLSchema()">
+                                        <i class="fas fa-file-code"></i> Export MySQL Schema
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="operation-item">
+                                <h4>Database Maintenance</h4>
+                                <p>Maintenance and optimization tasks</p>
+                                <div class="operation-buttons">
+                                    <button class="btn btn-primary" onclick="optimizeDatabase()">
+                                        <i class="fas fa-magic"></i> Optimize Database
+                                    </button>
+                                    <button class="btn btn-warning" onclick="clearDatabase()">
+                                        <i class="fas fa-trash"></i> Clear All Data
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="operation-item">
+                                <h4>Sample Data</h4>
+                                <p>Load sample data for testing</p>
+                                <div class="operation-buttons">
+                                    <button class="btn btn-primary" onclick="loadSampleData()">
+                                        <i class="fas fa-plus"></i> Load Sample Data
+                                    </button>
+                                    <button class="btn btn-secondary" onclick="clearSampleData()">
+                                        <i class="fas fa-minus"></i> Clear Sample Data
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MySQL Migration -->
+                    <div class="mysql-migration-card">
+                        <h3><i class="fas fa-server"></i> MySQL Migration</h3>
+                        <p>Prepare for migration to MySQL on Namecheap hosting</p>
+                        
+                        <div class="migration-steps">
+                            <div class="step-item">
+                                <span class="step-number">1</span>
+                                <div class="step-content">
+                                    <h4>Export Current Data</h4>
+                                    <p>Create a complete backup of your current database</p>
+                                    <button class="btn btn-small" onclick="exportForMigration()">
+                                        Export for Migration
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <span class="step-number">2</span>
+                                <div class="step-content">
+                                    <h4>Set Up MySQL Database</h4>
+                                    <p>Use the provided schema file to create your MySQL database</p>
+                                    <button class="btn btn-small" onclick="downloadMySQLSchema()">
+                                        Download Schema
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <span class="step-number">3</span>
+                                <div class="step-content">
+                                    <h4>Import Data</h4>
+                                    <p>Import your exported data into the MySQL database</p>
+                                    <button class="btn btn-small" onclick="showMigrationGuide()">
+                                        View Migration Guide
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <span class="step-number">4</span>
+                                <div class="step-content">
+                                    <h4>Switch to MySQL Mode</h4>
+                                    <p>Update your application configuration to use MySQL</p>
+                                    <button class="btn btn-small" onclick="configureMySQLMode()">
+                                        Configure MySQL Mode
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Database Logs -->
+                    <div class="database-logs-card">
+                        <h3><i class="fas fa-list"></i> Recent Database Operations</h3>
+                        <div class="logs-container" id="database-logs">
+                            <div class="log-entry">
+                                <span class="log-time">Loading...</span>
+                                <span class="log-message">Database logs will appear here</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary" onclick="refreshDatabaseLogs()">
+                            <i class="fas fa-refresh"></i> Refresh Logs
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html> 

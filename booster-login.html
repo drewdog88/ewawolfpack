@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booster Club Login - Eastlake Wolfpack Association</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin-login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="images/eastlake-wolves-logo.png" alt="Eastlake Wolves" class="logo-img">
+                <span class="logo-text">Eastlake Wolfpack Association - Booster Club Portal</span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="login-section">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <div class="login-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h1>Booster Club Login</h1>
+                    <p>Access your club's admin dashboard</p>
+                </div>
+
+                <form id="booster-login-form" class="login-form">
+                    <div class="input-group">
+                        <label for="booster-club">Select Your Booster Club</label>
+                        <select id="booster-club" name="boosterClub" required>
+                            <option value="">-- Select Your Booster Club --</option>
+                            <option value="cheer">Cheer</option>
+                            <option value="dance">Dance</option>
+                            <option value="softball">Softball</option>
+                            <option value="boys-soccer">Boys Soccer</option>
+                            <option value="girls-soccer">Girls Soccer</option>
+                            <option value="boys-swim-dive">Boys Swim and Dive</option>
+                            <option value="girls-swim-dive">Girls Swim and Dive</option>
+                            <option value="wrestling">Wrestling</option>
+                            <option value="robotics">Robotics</option>
+                            <option value="volleyball">Volleyball</option>
+                            <option value="boys-basketball">Boys Basketball</option>
+                            <option value="girls-basketball">Girls Basketball</option>
+                            <option value="boys-golf">Boys Golf</option>
+                            <option value="girls-golf">Girls Golf</option>
+                            <option value="decca">DECCA</option>
+                            <option value="theater">Theater</option>
+                            <option value="choir">Choir</option>
+                            <option value="gymnastics">Gymnastics</option>
+                            <option value="orchestra">Orchestra</option>
+                            <option value="band">Band</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="booster-username">Username</label>
+                        <input type="text" id="booster-username" name="username" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="booster-password">Password</label>
+                        <input type="password" id="booster-password" name="password" required>
+                    </div>
+
+                    <button type="submit" class="login-btn">
+                        <span class="btn-text">Login to Club Dashboard</span>
+                        <span class="btn-loading" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i> Logging in...
+                        </span>
+                    </button>
+                </form>
+
+                <div class="login-footer">
+                    <p>Need access? Contact the EWA administrator</p>
+                    <a href="index.html">Return to Main Site</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="booster-login.js"></script>
+</body>
+</html> 

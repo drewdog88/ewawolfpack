@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join the Eastlake Wolfpack Association - Membership</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="membership.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="images/eastlake-wolves-logo.png" alt="Eastlake Wolves" class="logo-img">
+                <span class="logo-text">Eastlake Wolfpack Association</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="membership.html" class="nav-link active">Join</a>
+                </li>
+                <li class="nav-item">
+                    <a href="donate.html" class="nav-link">Donate</a>
+                </li>
+                <li class="nav-item">
+                    <a href="officers.html" class="nav-link">Officers</a>
+                </li>
+                <li class="nav-item">
+                    <a href="accomplishments.html" class="nav-link">Accomplishments</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-login.html" class="nav-link">Admin</a>
+                </li>
+                <li class="nav-item">
+                    <a href="booster-login.html" class="nav-link">Club Login</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Join the Eastlake Wolfpack Association</h1>
+            <p>Become a member and help support our student-athletes</p>
+        </div>
+    </section>
+
+    <!-- Membership Tiers -->
+    <section class="membership-tiers">
+        <div class="container">
+            <h2 class="section-title">Choose Your Membership Level</h2>
+            <div class="tiers-grid">
+                <div class="tier-card">
+                    <div class="tier-header">
+                        <h3>Basic Member</h3>
+                        <div class="price">$50<span>/year</span></div>
+                    </div>
+                    <ul class="tier-benefits">
+                        <li><i class="fas fa-check"></i> Voting rights at annual meeting</li>
+                        <li><i class="fas fa-check"></i> Newsletter subscription</li>
+                        <li><i class="fas fa-check"></i> Access to member events</li>
+                        <li><i class="fas fa-check"></i> Wolfpack Association sticker</li>
+                    </ul>
+                    <div class="payment-options">
+                        <button class="btn btn-primary select-tier" data-tier="basic" data-price="50" data-type="recurring">Annual ($50/year)</button>
+                        <button class="btn btn-secondary select-tier" data-tier="basic" data-price="50" data-type="one-time">One-time ($50)</button>
+                    </div>
+                </div>
+
+                <div class="tier-card featured">
+                    <div class="tier-badge">Most Popular</div>
+                    <div class="tier-header">
+                        <h3>Silver Member</h3>
+                        <div class="price">$100<span>/year</span></div>
+                    </div>
+                    <ul class="tier-benefits">
+                        <li><i class="fas fa-check"></i> All Basic benefits</li>
+                        <li><i class="fas fa-check"></i> Reserved seating at home games</li>
+                        <li><i class="fas fa-check"></i> Wolfpack Association t-shirt</li>
+                        <li><i class="fas fa-check"></i> Recognition in game programs</li>
+                        <li><i class="fas fa-check"></i> Priority registration for events</li>
+                    </ul>
+                    <div class="payment-options">
+                        <button class="btn btn-primary select-tier" data-tier="silver" data-price="100" data-type="recurring">Annual ($100/year)</button>
+                        <button class="btn btn-secondary select-tier" data-tier="silver" data-price="100" data-type="one-time">One-time ($100)</button>
+                    </div>
+                </div>
+
+                <div class="tier-card">
+                    <div class="tier-header">
+                        <h3>Gold Member</h3>
+                        <div class="price">$250<span>/year</span></div>
+                    </div>
+                    <ul class="tier-benefits">
+                        <li><i class="fas fa-check"></i> All Silver benefits</li>
+                        <li><i class="fas fa-check"></i> VIP parking at home games</li>
+                        <li><i class="fas fa-check"></i> Wolfpack Association hoodie</li>
+                        <li><i class="fas fa-check"></i> Name on donor wall</li>
+                        <li><i class="fas fa-check"></i> Invitation to exclusive events</li>
+                        <li><i class="fas fa-check"></i> Board meeting attendance</li>
+                    </ul>
+                    <div class="payment-options">
+                        <button class="btn btn-primary select-tier" data-tier="gold" data-price="250" data-type="recurring">Annual ($250/year)</button>
+                        <button class="btn btn-secondary select-tier" data-tier="gold" data-price="250" data-type="one-time">One-time ($250)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership Form -->
+    <section class="membership-form" id="membership-form">
+        <div class="container">
+            <div class="form-container">
+                <h2>Complete Your Membership</h2>
+                <form id="join-form">
+                    <div class="selected-tier-display">
+                        <h3>Selected: <span id="selected-tier-name">No tier selected</span></h3>
+                        <p>Amount: $<span id="selected-tier-price">0</span> <span id="selected-payment-type"></span></p>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="address">Street Address *</label>
+                            <input type="text" id="address" name="address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City *</label>
+                            <input type="text" id="city" name="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State *</label>
+                            <select id="state" name="state" required>
+                                <option value="">Select State</option>
+                                <option value="WA">Washington</option>
+                                <!-- Add other states as needed -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="zipCode">ZIP Code *</label>
+                            <input type="text" id="zipCode" name="zipCode" required>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Student Information (Optional)</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="studentName">Student Name</label>
+                                <input type="text" id="studentName" name="studentName">
+                            </div>
+                            <div class="form-group">
+                                <label for="studentGrade">Grade Level</label>
+                                <select id="studentGrade" name="studentGrade">
+                                    <option value="">Select Grade</option>
+                                    <option value="9">9th Grade</option>
+                                    <option value="10">10th Grade</option>
+                                    <option value="11">11th Grade</option>
+                                    <option value="12">12th Grade</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="sport">Primary Sport</label>
+                                <select id="sport" name="sport">
+                                    <option value="">Select Sport</option>
+                                    <option value="football">Football</option>
+                                    <option value="basketball">Basketball</option>
+                                    <option value="soccer">Soccer</option>
+                                    <option value="baseball">Baseball</option>
+                                    <option value="softball">Softball</option>
+                                    <option value="volleyball">Volleyball</option>
+                                    <option value="track">Track & Field</option>
+                                    <option value="swimming">Swimming</option>
+                                    <option value="tennis">Tennis</option>
+                                    <option value="golf">Golf</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Payment Information</h3>
+                        <div class="payment-options">
+                            <div class="payment-option">
+                                <input type="radio" id="stripe" name="paymentMethod" value="stripe" checked>
+                                <label for="stripe">Credit/Debit Card (Stripe)</label>
+                            </div>
+                            <div class="payment-option">
+                                <input type="radio" id="zelle" name="paymentMethod" value="zelle">
+                                <label for="zelle">Zelle Transfer</label>
+                            </div>
+                        </div>
+
+                        <div id="stripe-payment" class="payment-section">
+                            <div id="card-element" class="card-element">
+                                <!-- Stripe Card Element will be inserted here -->
+                            </div>
+                            <div id="card-errors" class="error-message" role="alert"></div>
+                        </div>
+
+                        <div id="zelle-payment" class="payment-section" style="display: none;">
+                            <div class="zelle-info">
+                                <div id="zelle-club-info">
+                                    <p><strong>Zelle Payment Instructions:</strong></p>
+                                    <p>Send payment to: <strong id="zelle-email-display-membership">treasurer@eastlakewolfpack.org</strong></p>
+                                    <p>Recipient: <strong id="zelle-name-display-membership">Eastlake Wolfpack Association</strong></p>
+                                    <p>Please include your name in the memo field.</p>
+                                    <p>Your membership will be activated once payment is received.</p>
+                                </div>
+                                <div id="zelle-qr-section-membership" class="zelle-qr-section" style="display: none;">
+                                    <h4>Quick Payment QR Code</h4>
+                                    <div id="zelle-qr-container-membership" class="qr-container">
+                                        <p class="qr-placeholder">QR code will appear here</p>
+                                    </div>
+                                    <p class="qr-instruction">Scan with your phone's camera or Zelle app</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="newsletter" name="newsletter">
+                            <label for="newsletter">Subscribe to our newsletter for updates and events</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="volunteer" name="volunteer">
+                            <label for="volunteer">I'm interested in volunteering opportunities</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="agree" name="agree" required>
+                            <label for="agree">I agree to the <a href="#" target="_blank">Terms and Conditions</a> and <a href="#" target="_blank">Privacy Policy</a> *</label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="submit-btn">
+                            <span id="submit-text">Complete Membership</span>
+                            <span id="submit-loading" style="display: none;">
+                                <i class="fas fa-spinner fa-spin"></i> Processing...
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Eastlake Wolfpack Association</h3>
+                    <p>Supporting Eastlake High School Athletics</p>
+                    <p>400 228th Ave NE<br>Sammamish, WA 98074</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="membership.html">Join</a></li>
+                        <li><a href="donate.html">Donate</a></li>
+                        <li><a href="officers.html">Officers</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <p>Email: info@eastlakewolfpack.org</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Eastlake Wolfpack Association. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="script.js"></script>
+    <script src="membership.js"></script>
+    <script src="contact-protection.js"></script>
+</body>
+</html> 

@@ -1,0 +1,338 @@
+/* Page Header */
+.page-header {
+    background: linear-gradient(135deg, #1a365d 0%, #2d5a8a 100%);
+    color: white;
+    padding: 120px 0 60px;
+    text-align: center;
+}
+
+.page-header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.page-header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* About Content */
+.about-content {
+    padding: 80px 0;
+    background: #f8fafc;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.about-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.about-card:hover {
+    transform: translateY(-5px);
+}
+
+.about-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #1a365d, #2d5a8a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    color: white;
+    font-size: 2rem;
+}
+
+.about-card h2 {
+    color: #1a365d;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.about-card p {
+    color: #64748b;
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+/* Services List */
+.services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.service-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #f8fafc;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+.service-item:hover {
+    background: #e2e8f0;
+}
+
+.service-item i {
+    color: #1a365d;
+    font-size: 1.2rem;
+    width: 20px;
+}
+
+.service-item span {
+    font-weight: 500;
+    color: #374151;
+}
+
+/* Non-Profit Section */
+.nonprofit-section {
+    padding: 80px 0;
+    background: white;
+}
+
+.nonprofit-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.nonprofit-content h2 {
+    color: #1a365d;
+    font-size: 2.5rem;
+    margin-bottom: 25px;
+}
+
+.nonprofit-content p {
+    color: #64748b;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.nonprofit-details {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    border-left: 4px solid #1a365d;
+    text-align: left;
+}
+
+.detail-item {
+    margin-bottom: 10px;
+    color: #374151;
+    font-size: 1rem;
+}
+
+.detail-item:last-child {
+    margin-bottom: 0;
+}
+
+.detail-item strong {
+    color: #1a365d;
+    font-weight: 600;
+}
+
+.nonprofit-benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    background: #f8fafc;
+    border-radius: 10px;
+}
+
+.benefit-item i {
+    color: #10b981;
+    font-size: 1.2rem;
+}
+
+.benefit-item span {
+    font-weight: 500;
+    color: #374151;
+}
+
+/* Boosters Section */
+.boosters-section {
+    padding: 80px 0;
+    background: #f8fafc;
+}
+
+.boosters-section h2 {
+    text-align: center;
+    color: #1a365d;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.boosters-intro {
+    text-align: center;
+    color: #64748b;
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto 50px;
+    line-height: 1.6;
+}
+
+.boosters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.booster-category {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
+
+.booster-category:hover {
+    transform: translateY(-3px);
+}
+
+.booster-category h3 {
+    color: #1a365d;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 10px;
+}
+
+.booster-category ul {
+    list-style: none;
+    padding: 0;
+}
+
+.booster-category li {
+    padding: 8px 0;
+    color: #64748b;
+    border-bottom: 1px solid #f1f5f9;
+    transition: color 0.3s ease;
+}
+
+.booster-category li:last-child {
+    border-bottom: none;
+}
+
+.booster-category li:hover {
+    color: #1a365d;
+}
+
+/* Contact Section */
+.contact-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #1a365d 0%, #2d5a8a 100%);
+    color: white;
+}
+
+.contact-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.contact-content p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.contact-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .page-header h1 {
+        font-size: 2.5rem;
+    }
+    
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .about-card {
+        padding: 30px 20px;
+    }
+    
+    .boosters-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+    
+    .booster-category {
+        padding: 25px 20px;
+    }
+    
+    .contact-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .contact-buttons .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header {
+        padding: 100px 0 40px;
+    }
+    
+    .page-header h1 {
+        font-size: 2rem;
+    }
+    
+    .about-content,
+    .nonprofit-section,
+    .boosters-section,
+    .contact-section {
+        padding: 60px 0;
+    }
+    
+    .about-card {
+        padding: 25px 15px;
+    }
+    
+    .boosters-grid {
+        grid-template-columns: 1fr;
+    }
+} 

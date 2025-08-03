@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Test - Eastlake Wolfpack Association</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .info { background-color: #d1ecf1; border-color: #bee5eb; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        .data-display {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Database Integration Test</h1>
+        <p>This page tests the database integration for the Eastlake Wolfpack Association admin panel.</p>
+        
+        <div class="test-section info">
+            <h3>Database Status</h3>
+            <div id="db-status">Checking database status...</div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Database Operations</h3>
+            <button onclick="testDatabaseConnection()">Test Connection</button>
+            <button onclick="testLoadSampleData()">Load Sample Data</button>
+            <button onclick="testGetStats()">Get Database Stats</button>
+            <button onclick="testGetMembers()">Get Members</button>
+            <button onclick="testGetDonations()">Get Donations</button>
+            <button onclick="testCreateBackup()">Create Backup</button>
+            <button onclick="clearTestResults()">Clear Results</button>
+        </div>
+        
+        <div class="test-section">
+            <h3>Test Results</h3>
+            <div id="test-results" class="data-display">
+                <p>Test results will appear here...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin-security.js"></script>
+    <script src="database.js"></script>
+    <script>
+        let testResults = [];
+        
+        function logTest(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            testResults.push(`[${timestamp}] ${message}`);
+            updateTestDisplay();
+        }
+        
+        function updateTestDisplay() {
+            const resultsDiv = document.getElementById('test-results');
+            resultsDiv.innerHTML = '<pre>' + testResults.join('\n') + '</pre>';
+        }
+        
+        function clearTestResults() {
+            testResults = [];
+            updateTestDisplay();
+        }
+        
+        async function testDatabaseConnection() {
+            try {
+                logTest('Testing database connection...');
+                
+                // Wait for database to initialize
+                let attempts = 0;
+                while (!window.db && attempts < 50) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    attempts++;
+                }
+                
+                if (!window.db) {
+                    throw new Error('Database failed to initialize');
+                }
+                
+                logTest('✅ Database connection successful!', 'success');
+                document.getElementById('db-status').innerHTML = '<span style="color: green;">✅ Connected</span>';
+                
+            } catch (error) {
+                logTest(`❌ Database connection failed: ${error.message}`, 'error');
+                document.getElementById('db-status').innerHTML = '<span style="color: red;">❌ Failed</span>';
+            }
+        }
+        
+        async function testLoadSampleData() {
+            try {
+                logTest('Loading sample data...');
+                
+                if (!window.databaseSetup) {
+                    throw new Error('Database setup not available');
+                }
+                
+                await window.databaseSetup.loadSampleData();
+                logTest('✅ Sample data loaded successfully!', 'success');
+                
+            } catch (error) {
+                logTest(`❌ Failed to load sample data: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testGetStats() {
+            try {
+                logTest('Getting database statistics...');
+                
+                if (!window.db) {
+                    throw new Error('Database not available');
+                }
+                
+                const stats = await window.db.getStats();
+                logTest('✅ Database stats retrieved:', 'success');
+                logTest(JSON.stringify(stats, null, 2));
+                
+            } catch (error) {
+                logTest(`❌ Failed to get stats: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testGetMembers() {
+            try {
+                logTest('Getting members data...');
+                
+                if (!window.models || !window.models.members) {
+                    throw new Error('Members model not available');
+                }
+                
+                const members = await window.models.members.getActive();
+                logTest(`✅ Retrieved ${members.length} members:`, 'success');
+                logTest(JSON.stringify(members, null, 2));
+                
+            } catch (error) {
+                logTest(`❌ Failed to get members: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testGetDonations() {
+            try {
+                logTest('Getting donations data...');
+                
+                if (!window.models || !window.models.donations) {
+                    throw new Error('Donations model not available');
+                }
+                
+                const donations = await window.models.donations.query({ status: 'completed' });
+                logTest(`✅ Retrieved ${donations.length} donations:`, 'success');
+                logTest(JSON.stringify(donations, null, 2));
+                
+            } catch (error) {
+                logTest(`❌ Failed to get donations: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testCreateBackup() {
+            try {
+                logTest('Creating database backup...');
+                
+                if (!window.db) {
+                    throw new Error('Database not available');
+                }
+                
+                const backup = await window.db.backup();
+                logTest('✅ Backup created successfully!', 'success');
+                logTest(`Backup contains ${Object.keys(backup.data).length} tables`);
+                
+            } catch (error) {
+                logTest(`❌ Failed to create backup: ${error.message}`, 'error');
+            }
+        }
+        
+        // Auto-test on page load
+        window.addEventListener('load', async function() {
+            logTest('Page loaded, starting database tests...');
+            await testDatabaseConnection();
+        });
+    </script>
+</body>
+</html> 

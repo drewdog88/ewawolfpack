@@ -1,0 +1,293 @@
+/* Page Header */
+.page-header {
+    background: linear-gradient(135deg, #1a365d 0%, #2d5a8a 100%);
+    color: white;
+    padding: 120px 0 60px;
+    text-align: center;
+}
+
+.page-header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.page-header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Officers Section */
+.officers-section {
+    padding: 80px 0;
+    background: #f8fafc;
+}
+
+.officers-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px;
+}
+
+.officers-intro h2 {
+    color: #1a365d;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.officers-intro p {
+    color: #64748b;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Officers Grid */
+.officers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.officer-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.officer-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #1a365d, #2d5a8a);
+}
+
+.officer-card.president::before {
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+}
+
+.officer-card.treasurer::before {
+    background: linear-gradient(135deg, #059669, #10b981);
+}
+
+.officer-card.insurance::before {
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+}
+
+.officer-card.secretary::before {
+    background: linear-gradient(135deg, #ea580c, #f97316);
+}
+
+.officer-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.officer-photo {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #1a365d, #2d5a8a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    color: white;
+    font-size: 2.5rem;
+}
+
+.officer-info h3 {
+    color: #1a365d;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.officer-title {
+    background: linear-gradient(135deg, #1a365d, #2d5a8a);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.officer-card.president .officer-title {
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+}
+
+.officer-card.treasurer .officer-title {
+    background: linear-gradient(135deg, #059669, #10b981);
+}
+
+.officer-card.insurance .officer-title {
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+}
+
+.officer-card.secretary .officer-title {
+    background: linear-gradient(135deg, #ea580c, #f97316);
+}
+
+.officer-info p {
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    font-size: 1rem;
+}
+
+.officer-contact {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #1a365d;
+    font-size: 0.9rem;
+}
+
+.officer-contact i {
+    color: #1a365d;
+    font-size: 1rem;
+}
+
+/* Contact Section */
+.contact-section {
+    padding: 80px 0;
+    background: white;
+}
+
+.contact-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.contact-content h2 {
+    color: #1a365d;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.contact-content > p {
+    color: #64748b;
+    font-size: 1.1rem;
+    margin-bottom: 50px;
+    line-height: 1.6;
+}
+
+.contact-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 30px;
+    background: #f8fafc;
+    border-radius: 15px;
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+
+.contact-item:hover {
+    transform: translateY(-3px);
+}
+
+.contact-item i {
+    color: #1a365d;
+    font-size: 1.5rem;
+    margin-top: 5px;
+}
+
+.contact-item h4 {
+    color: #1a365d;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.contact-item p {
+    color: #64748b;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .page-header h1 {
+        font-size: 2.5rem;
+    }
+    
+    .officers-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    
+    .officer-card {
+        padding: 30px 20px;
+    }
+    
+    .officer-photo {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+    }
+    
+    .officer-info h3 {
+        font-size: 1.6rem;
+    }
+    
+    .contact-info {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .contact-item {
+        padding: 25px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header {
+        padding: 100px 0 40px;
+    }
+    
+    .page-header h1 {
+        font-size: 2rem;
+    }
+    
+    .officers-section,
+    .contact-section {
+        padding: 60px 0;
+    }
+    
+    .officers-intro h2,
+    .contact-content h2 {
+        font-size: 2rem;
+    }
+    
+    .officer-card {
+        padding: 25px 15px;
+    }
+    
+    .officer-photo {
+        width: 70px;
+        height: 70px;
+        font-size: 1.8rem;
+    }
+} 
