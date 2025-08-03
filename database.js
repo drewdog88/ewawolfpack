@@ -54,7 +54,10 @@ const DB_CONFIG = {
         // Performance and metrics
         performanceMetrics: { keyPath: 'id', autoIncrement: true },
         goals: { keyPath: 'id', autoIncrement: true },
-        achievements: { keyPath: 'id', autoIncrement: true }
+        achievements: { keyPath: 'id', autoIncrement: true },
+        rssFeeds: { keyPath: 'id', autoIncrement: true },
+        instagramFeeds: { keyPath: 'id', autoIncrement: true },
+        newsArticles: { keyPath: 'id', autoIncrement: true }
     }
 };
 
@@ -1661,6 +1664,159 @@ class AchievementModel {
     }
 }
 
+// RSS Feed Model
+class RSSFeedModel {
+    constructor(dbManager) {
+        this.db = dbManager;
+        this.storeName = 'rssFeeds';
+    }
+
+    async create(feedData) {
+        const defaultData = {
+            createdAt: new Date().toISOString(),
+            lastUpdated: new Date().toISOString()
+        };
+        
+        return await this.db.create(this.storeName, { ...defaultData, ...feedData });
+    }
+
+    async read(id) {
+        return await this.db.read(this.storeName, id);
+    }
+
+    async update(id, feedData) {
+        return await this.db.update(this.storeName, id, feedData);
+    }
+
+    async delete(id) {
+        return await this.db.delete(this.storeName, id);
+    }
+
+    async getAll() {
+        return await this.db.query(this.storeName);
+    }
+
+    async getActive() {
+        const all = await this.getAll();
+        return all.filter(feed => feed.status === 'active');
+    }
+
+    async getByCategory(category) {
+        return await this.db.query(this.storeName, { category });
+    }
+
+    async updateLastUpdated(id) {
+        const feed = await this.read(id);
+        if (feed) {
+            feed.lastUpdated = new Date().toISOString();
+            await this.update(id, feed);
+        }
+    }
+}
+
+// Instagram Feed Model
+class InstagramFeedModel {
+    constructor(dbManager) {
+        this.db = dbManager;
+        this.storeName = 'instagramFeeds';
+    }
+
+    async create(feedData) {
+        const defaultData = {
+            createdAt: new Date().toISOString(),
+            lastUpdated: new Date().toISOString()
+        };
+        
+        return await this.db.create(this.storeName, { ...defaultData, ...feedData });
+    }
+
+    async read(id) {
+        return await this.db.read(this.storeName, id);
+    }
+
+    async update(id, feedData) {
+        return await this.db.update(this.storeName, id, feedData);
+    }
+
+    async delete(id) {
+        return await this.db.delete(this.storeName, id);
+    }
+
+    async getAll() {
+        return await this.db.query(this.storeName);
+    }
+
+    async getConnected() {
+        const all = await this.getAll();
+        return all.filter(feed => feed.status === 'connected');
+    }
+
+    async updatePostCount(id, count) {
+        const feed = await this.read(id);
+        if (feed) {
+            feed.postCount = count;
+            feed.lastUpdated = new Date().toISOString();
+            await this.update(id, feed);
+        }
+    }
+}
+
+// News Article Model
+class NewsArticleModel {
+    constructor(dbManager) {
+        this.db = dbManager;
+        this.storeName = 'newsArticles';
+    }
+
+    async create(articleData) {
+        const defaultData = {
+            createdAt: new Date().toISOString(),
+            status: 'draft'
+        };
+        
+        return await this.db.create(this.storeName, { ...defaultData, ...articleData });
+    }
+
+    async read(id) {
+        return await this.db.read(this.storeName, id);
+    }
+
+    async update(id, articleData) {
+        return await this.db.update(this.storeName, id, articleData);
+    }
+
+    async delete(id) {
+        return await this.db.delete(this.storeName, id);
+    }
+
+    async getAll() {
+        return await this.db.query(this.storeName);
+    }
+
+    async getPublished() {
+        const all = await this.getAll();
+        return all.filter(article => article.status === 'published');
+    }
+
+    async getByCategory(category) {
+        return await this.db.query(this.storeName, { category });
+    }
+
+    async getRecent(limit = 10) {
+        const all = await this.getAll();
+        return all.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)).slice(0, limit);
+    }
+
+    async publish(id) {
+        const article = await this.read(id);
+        if (article) {
+            article.status = 'published';
+            article.publishedAt = new Date().toISOString();
+            await this.update(id, article);
+        }
+    }
+}
+
 /**
  * Database initialization and setup
  */
@@ -1714,6 +1870,11 @@ class DatabaseSetup {
             this.models.performanceMetrics = new PerformanceMetricModel(this.dbManager);
             this.models.goals = new GoalModel(this.dbManager);
             this.models.achievements = new AchievementModel(this.dbManager);
+            
+            // Initialize news and social media models
+            this.models.rssFeeds = new RSSFeedModel(this.dbManager);
+            this.models.instagramFeeds = new InstagramFeedModel(this.dbManager);
+            this.models.newsArticles = new NewsArticleModel(this.dbManager);
             
             // Load sample data if database is empty
             await this.loadSampleData();
@@ -2328,6 +2489,9 @@ window.VendorModel = VendorModel;
 window.InsuranceModel = InsuranceModel;
 window.BoosterClubModel = BoosterClubModel;
 window.AdminLogModel = AdminLogModel;
+window.RSSFeedModel = RSSFeedModel;
+window.InstagramFeedModel = InstagramFeedModel;
+window.NewsArticleModel = NewsArticleModel;
 
 // Initialize database when script loads
 document.addEventListener('DOMContentLoaded', async function() {

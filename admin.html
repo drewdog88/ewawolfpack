@@ -73,6 +73,10 @@
                     <i class="fas fa-edit"></i>
                     Content
                 </a>
+                <a href="#news-updates" class="sidebar-link" data-section="news-updates">
+                    <i class="fas fa-newspaper"></i>
+                    News & Updates
+                </a>
                 <a href="#reports" class="sidebar-link" data-section="reports">
                     <i class="fas fa-chart-bar"></i>
                     Reports
@@ -475,6 +479,217 @@
                             <textarea rows="3" placeholder="Enter non-profit information...">The Eastlake Wolfpack Association is a registered 501(c)(3) non-profit organization. All donations are tax-deductible to the extent allowed by law. EIN (Tax ID): 77-0616862</textarea>
                             
                             <button class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- News & Updates Section -->
+            <section id="news-updates" class="admin-section">
+                <div class="section-header">
+                    <h1>News & Updates Management</h1>
+                    <p>Manage news articles, RSS feeds, and social media integration</p>
+                </div>
+
+                <div class="news-grid">
+                    <!-- News Articles Management -->
+                    <div class="news-card">
+                        <h3><i class="fas fa-newspaper"></i> News Articles</h3>
+                        <div class="news-articles-list">
+                            <div class="news-article-item">
+                                <div class="article-info">
+                                    <h4>Eastlake Wolves Win Championship</h4>
+                                    <p class="article-meta">Published: 2024-01-15 | Category: Sports</p>
+                                    <p class="article-excerpt">The Eastlake Wolves football team secured their first state championship in program history...</p>
+                                </div>
+                                <div class="article-actions">
+                                    <button class="btn btn-small">Edit</button>
+                                    <button class="btn btn-small btn-danger">Delete</button>
+                                </div>
+                            </div>
+                            <div class="news-article-item">
+                                <div class="article-info">
+                                    <h4>New Booster Club Registration Open</h4>
+                                    <p class="article-meta">Published: 2024-01-10 | Category: Announcements</p>
+                                    <p class="article-excerpt">Registration is now open for the 2024-2025 school year booster club memberships...</p>
+                                </div>
+                                <div class="article-actions">
+                                    <button class="btn btn-small">Edit</button>
+                                    <button class="btn btn-small btn-danger">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary">Add News Article</button>
+                    </div>
+
+                    <!-- RSS Feed Management -->
+                    <div class="news-card">
+                        <h3><i class="fas fa-rss"></i> RSS Feed Management</h3>
+                        <div class="rss-feeds-list">
+                            <div class="rss-feed-item">
+                                <div class="feed-info">
+                                    <h4>Eastlake High School News</h4>
+                                    <p class="feed-url">https://eastlakehs.lwsd.org/news</p>
+                                    <p class="feed-status active">Active - Last updated: 2 hours ago</p>
+                                </div>
+                                <div class="feed-actions">
+                                    <button class="btn btn-small">Edit</button>
+                                    <button class="btn btn-small btn-danger">Remove</button>
+                                </div>
+                            </div>
+                            <div class="rss-feed-item">
+                                <div class="feed-info">
+                                    <h4>KingCo Conference Sports</h4>
+                                    <p class="feed-url">https://kingcoathletics.com/feed</p>
+                                    <p class="feed-status active">Active - Last updated: 1 day ago</p>
+                                </div>
+                                <div class="feed-actions">
+                                    <button class="btn btn-small">Edit</button>
+                                    <button class="btn btn-small btn-danger">Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Add New RSS Feed -->
+                        <div class="add-rss-feed">
+                            <h4>Add New RSS Feed</h4>
+                            <form class="rss-feed-form">
+                                <div class="form-group">
+                                    <label for="rss-feed-name">Feed Name:</label>
+                                    <input type="text" id="rss-feed-name" placeholder="Enter feed name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="rss-feed-url">RSS URL:</label>
+                                    <input type="url" id="rss-feed-url" placeholder="https://example.com/feed">
+                                </div>
+                                <div class="form-group">
+                                    <label for="rss-feed-category">Category:</label>
+                                    <select id="rss-feed-category">
+                                        <option value="sports">Sports</option>
+                                        <option value="school">School News</option>
+                                        <option value="community">Community</option>
+                                        <option value="general">General</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="rss-update-frequency">Update Frequency:</label>
+                                    <select id="rss-update-frequency">
+                                        <option value="15">Every 15 minutes</option>
+                                        <option value="30">Every 30 minutes</option>
+                                        <option value="60" selected>Every hour</option>
+                                        <option value="240">Every 4 hours</option>
+                                        <option value="1440">Daily</option>
+                                    </select>
+                                </div>
+                                <button type="button" class="btn btn-primary" onclick="addRSSFeed()">
+                                    <i class="fas fa-plus"></i> Add RSS Feed
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Instagram Feed Integration -->
+                    <div class="news-card">
+                        <h3><i class="fab fa-instagram"></i> Instagram Feed Integration</h3>
+                        <div class="instagram-feeds-list">
+                            <div class="instagram-feed-item">
+                                <div class="feed-info">
+                                    <h4>@eastlakewolves</h4>
+                                    <p class="feed-description">Official Eastlake Wolves Athletics</p>
+                                    <p class="feed-status active">Connected - 1,247 posts</p>
+                                </div>
+                                <div class="feed-actions">
+                                    <button class="btn btn-small">Configure</button>
+                                    <button class="btn btn-small btn-danger">Disconnect</button>
+                                </div>
+                            </div>
+                            <div class="instagram-feed-item">
+                                <div class="feed-info">
+                                    <h4>@eastlakefootball</h4>
+                                    <p class="feed-description">Eastlake Football Team</p>
+                                    <p class="feed-status active">Connected - 892 posts</p>
+                                </div>
+                                <div class="feed-actions">
+                                    <button class="btn btn-small">Configure</button>
+                                    <button class="btn btn-small btn-danger">Disconnect</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Add Instagram Feed -->
+                        <div class="add-instagram-feed">
+                            <h4>Connect Instagram Account</h4>
+                            <form class="instagram-feed-form">
+                                <div class="form-group">
+                                    <label for="instagram-username">Instagram Username:</label>
+                                    <input type="text" id="instagram-username" placeholder="@username">
+                                </div>
+                                <div class="form-group">
+                                    <label for="instagram-description">Description:</label>
+                                    <input type="text" id="instagram-description" placeholder="Brief description of this feed">
+                                </div>
+                                <div class="form-group">
+                                    <label for="instagram-display-count">Posts to Display:</label>
+                                    <select id="instagram-display-count">
+                                        <option value="6">6 posts</option>
+                                        <option value="9" selected>9 posts</option>
+                                        <option value="12">12 posts</option>
+                                        <option value="15">15 posts</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="instagram-update-frequency">Update Frequency:</label>
+                                    <select id="instagram-update-frequency">
+                                        <option value="30">Every 30 minutes</option>
+                                        <option value="60" selected>Every hour</option>
+                                        <option value="240">Every 4 hours</option>
+                                        <option value="1440">Daily</option>
+                                    </select>
+                                </div>
+                                <button type="button" class="btn btn-primary" onclick="connectInstagramFeed()">
+                                    <i class="fab fa-instagram"></i> Connect Instagram
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- News Settings -->
+                    <div class="news-card">
+                        <h3><i class="fas fa-cog"></i> News Settings</h3>
+                        <div class="news-settings">
+                            <div class="setting-group">
+                                <label>
+                                    <input type="checkbox" id="auto-publish-rss" checked>
+                                    Auto-publish RSS articles
+                                </label>
+                                <p class="setting-description">Automatically publish articles from RSS feeds</p>
+                            </div>
+                            <div class="setting-group">
+                                <label>
+                                    <input type="checkbox" id="show-instagram-feed" checked>
+                                    Display Instagram feed on website
+                                </label>
+                                <p class="setting-description">Show Instagram posts on the main website</p>
+                            </div>
+                            <div class="setting-group">
+                                <label>
+                                    <input type="checkbox" id="moderate-comments" checked>
+                                    Moderate comments on news articles
+                                </label>
+                                <p class="setting-description">Require approval before publishing comments</p>
+                            </div>
+                            <div class="setting-group">
+                                <label for="news-per-page">Articles per page:</label>
+                                <select id="news-per-page">
+                                    <option value="5">5 articles</option>
+                                    <option value="10" selected>10 articles</option>
+                                    <option value="15">15 articles</option>
+                                    <option value="20">20 articles</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" onclick="saveNewsSettings()">
+                                <i class="fas fa-save"></i> Save Settings
+                            </button>
                         </div>
                     </div>
                 </div>

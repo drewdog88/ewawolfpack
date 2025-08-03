@@ -207,9 +207,12 @@ async function loadSectionData(sectionId) {
             case 'booster-management':
                 loadBoosterManagementData();
                 break;
-            case 'settings':
-                loadSettingsData();
-                break;
+                    case 'news-updates':
+            loadNewsUpdatesData();
+            break;
+        case 'settings':
+            loadSettingsData();
+            break;
             default:
                 console.log('Unknown section:', sectionId);
                 showDefaultContent(sectionId);
@@ -3168,4 +3171,181 @@ function testNavigation() {
 // Run navigation test on page load
 document.addEventListener('DOMContentLoaded', function() {
     setTimeout(testNavigation, 1000);
-}); 
+});
+
+// News & Updates Functions
+function addRSSFeed() {
+    const feedName = document.getElementById('rss-feed-name').value;
+    const feedUrl = document.getElementById('rss-feed-url').value;
+    const category = document.getElementById('rss-feed-category').value;
+    const frequency = document.getElementById('rss-update-frequency').value;
+
+    if (!feedName || !feedUrl) {
+        SecurityMessage.show('Please fill in all required fields', 'error');
+        return;
+    }
+
+    if (!InputValidator.isValidUrl(feedUrl)) {
+        SecurityMessage.show('Please enter a valid RSS feed URL', 'error');
+        return;
+    }
+
+    // Add RSS feed to database
+    if (window.models && window.models.rssFeeds) {
+        const newFeed = {
+            id: Date.now(),
+            name: InputSanitizer.sanitizeText(feedName),
+            url: InputSanitizer.sanitizeUrl(feedUrl),
+            category: category,
+            updateFrequency: parseInt(frequency),
+            status: 'active',
+            lastUpdated: new Date().toISOString(),
+            createdAt: new Date().toISOString()
+        };
+
+        window.models.rssFeeds.create(newFeed)
+            .then(() => {
+                SecurityMessage.show('RSS feed added successfully', 'success');
+                loadSectionData('news-updates');
+                // Clear form
+                document.getElementById('rss-feed-name').value = '';
+                document.getElementById('rss-feed-url').value = '';
+            })
+            .catch(error => {
+                console.error('Error adding RSS feed:', error);
+                SecurityMessage.show('Error adding RSS feed', 'error');
+            });
+    } else {
+        SecurityMessage.show('Database not ready. Please try again.', 'error');
+    }
+}
+
+function connectInstagramFeed() {
+    const username = document.getElementById('instagram-username').value;
+    const description = document.getElementById('instagram-description').value;
+    const displayCount = document.getElementById('instagram-display-count').value;
+    const frequency = document.getElementById('instagram-update-frequency').value;
+
+    if (!username) {
+        SecurityMessage.show('Please enter an Instagram username', 'error');
+        return;
+    }
+
+    // Validate Instagram username format
+    const usernameRegex = /^@?[a-zA-Z0-9._]+$/;
+    if (!usernameRegex.test(username.replace('@', ''))) {
+        SecurityMessage.show('Please enter a valid Instagram username', 'error');
+        return;
+    }
+
+    // Add Instagram feed to database
+    if (window.models && window.models.instagramFeeds) {
+        const newFeed = {
+            id: Date.now(),
+            username: InputSanitizer.sanitizeText(username.replace('@', '')),
+            description: InputSanitizer.sanitizeText(description),
+            displayCount: parseInt(displayCount),
+            updateFrequency: parseInt(frequency),
+            status: 'connected',
+            postCount: 0,
+            lastUpdated: new Date().toISOString(),
+            createdAt: new Date().toISOString()
+        };
+
+        window.models.instagramFeeds.create(newFeed)
+            .then(() => {
+                SecurityMessage.show('Instagram feed connected successfully', 'success');
+                loadSectionData('news-updates');
+                // Clear form
+                document.getElementById('instagram-username').value = '';
+                document.getElementById('instagram-description').value = '';
+            })
+            .catch(error => {
+                console.error('Error connecting Instagram feed:', error);
+                SecurityMessage.show('Error connecting Instagram feed', 'error');
+            });
+    } else {
+        SecurityMessage.show('Database not ready. Please try again.', 'error');
+    }
+}
+
+function saveNewsSettings() {
+    const autoPublishRSS = document.getElementById('auto-publish-rss').checked;
+    const showInstagramFeed = document.getElementById('show-instagram-feed').checked;
+    const moderateComments = document.getElementById('moderate-comments').checked;
+    const newsPerPage = document.getElementById('news-per-page').value;
+
+    const settings = {
+        autoPublishRSS: autoPublishRSS,
+        showInstagramFeed: showInstagramFeed,
+        moderateComments: moderateComments,
+        newsPerPage: parseInt(newsPerPage),
+        updatedAt: new Date().toISOString()
+    };
+
+    // Save to database
+    if (window.models && window.models.settings) {
+        window.models.settings.update('news-settings', settings)
+            .then(() => {
+                SecurityMessage.show('News settings saved successfully', 'success');
+                secureLogger.log('News settings updated', 'settings', settings);
+            })
+            .catch(error => {
+                console.error('Error saving news settings:', error);
+                SecurityMessage.show('Error saving news settings', 'error');
+            });
+    } else {
+        SecurityMessage.show('Database not ready. Please try again.', 'error');
+    }
+}
+
+function loadNewsUpdatesData() {
+    if (!window.db || !window.models) {
+        console.log('Database not ready for news updates data');
+        return;
+    }
+
+    try {
+        // Load RSS feeds
+        if (window.models.rssFeeds) {
+            window.models.rssFeeds.getAll()
+                .then(feeds => {
+                    console.log('Loaded RSS feeds:', feeds);
+                    // Update RSS feeds list in UI
+                })
+                .catch(error => {
+                    console.error('Error loading RSS feeds:', error);
+                });
+        }
+
+        // Load Instagram feeds
+        if (window.models.instagramFeeds) {
+            window.models.instagramFeeds.getAll()
+                .then(feeds => {
+                    console.log('Loaded Instagram feeds:', feeds);
+                    // Update Instagram feeds list in UI
+                })
+                .catch(error => {
+                    console.error('Error loading Instagram feeds:', error);
+                });
+        }
+
+        // Load news settings
+        if (window.models.settings) {
+            window.models.settings.get('news-settings')
+                .then(settings => {
+                    if (settings) {
+                        document.getElementById('auto-publish-rss').checked = settings.autoPublishRSS || false;
+                        document.getElementById('show-instagram-feed').checked = settings.showInstagramFeed || false;
+                        document.getElementById('moderate-comments').checked = settings.moderateComments || false;
+                        document.getElementById('news-per-page').value = settings.newsPerPage || 10;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading news settings:', error);
+                });
+        }
+    } catch (error) {
+        console.error('Error in loadNewsUpdatesData:', error);
+    }
+} 
