@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel Test - Eastlake Wolfpack Association</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .info { background-color: #d1ecf1; border-color: #bee5eb; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        .step {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .step-number {
+            background: #007bff;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Admin Panel Setup Guide</h1>
+        <p>This guide will help you get your Eastlake Wolfpack Association admin panel working properly.</p>
+        
+        <div class="test-section info">
+            <h3>📋 What You Need to Know</h3>
+            <p><strong>Good news!</strong> You don't need to install or start any database software. The database runs inside your web browser automatically.</p>
+        </div>
+        
+        <div class="test-section">
+            <h3>🚀 Step-by-Step Setup</h3>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Open the Admin Panel</strong><br>
+                <a href="admin.html" target="_blank">Click here to open admin.html</a>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Log In</strong><br>
+                Use these credentials:
+                <ul>
+                    <li><strong>Username:</strong> admin</li>
+                    <li><strong>Password:</strong> admin123</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Test Database Connection</strong><br>
+                <ol>
+                    <li>Click on "Database" in the sidebar</li>
+                    <li>Click "Test Connection" button</li>
+                    <li>You should see "✅ Connected"</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Load Sample Data</strong><br>
+                <ol>
+                    <li>Still in the Database section</li>
+                    <li>Click "Load Sample Data" button</li>
+                    <li>Wait for success message</li>
+                </ol>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>Test Navigation</strong><br>
+                <ol>
+                    <li>Click on "Members" - should show sample members</li>
+                    <li>Click on "Donations" - should show sample donations</li>
+                    <li>Click on "Dashboard" - should show statistics</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h3>🔍 Quick Test</h3>
+            <button onclick="testDatabase()">Test Database Connection</button>
+            <button onclick="testNavigation()">Test Navigation</button>
+            <button onclick="loadSampleData()">Load Sample Data</button>
+            <div id="test-results"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>❓ Troubleshooting</h3>
+            <p><strong>If navigation doesn't work:</strong></p>
+            <ul>
+                <li>Make sure you're logged in</li>
+                <li>Try refreshing the page</li>
+                <li>Check the browser console (F12) for errors</li>
+                <li>Make sure all files are in the same folder</li>
+            </ul>
+            
+            <p><strong>If database doesn't work:</strong></p>
+            <ul>
+                <li>Make sure you're using a modern browser (Chrome, Firefox, Safari, Edge)</li>
+                <li>Check if JavaScript is enabled</li>
+                <li>Try opening the page in a different browser</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h3>📁 File Checklist</h3>
+            <p>Make sure these files are in your folder:</p>
+            <ul>
+                <li>✅ admin.html</li>
+                <li>✅ admin.js</li>
+                <li>✅ admin-security.js</li>
+                <li>✅ database.js</li>
+                <li>✅ admin.css</li>
+                <li>✅ styles.css</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="admin-security.js"></script>
+    <script src="database.js"></script>
+    <script>
+        function showResult(message, type = 'info') {
+            const results = document.getElementById('test-results');
+            results.innerHTML = `<div class="test-section ${type}">${message}</div>`;
+        }
+        
+        async function testDatabase() {
+            try {
+                showResult('Testing database connection...', 'info');
+                
+                // Wait for database to initialize
+                let attempts = 0;
+                while (!window.db && attempts < 50) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    attempts++;
+                }
+                
+                if (!window.db) {
+                    showResult('❌ Database failed to initialize. Please refresh the page.', 'error');
+                    return;
+                }
+                
+                showResult('✅ Database connection successful!', 'success');
+            } catch (error) {
+                showResult(`❌ Database test failed: ${error.message}`, 'error');
+            }
+        }
+        
+        function testNavigation() {
+            try {
+                const sidebarLinks = document.querySelectorAll('.sidebar-link');
+                const adminSections = document.querySelectorAll('.admin-section');
+                
+                if (sidebarLinks.length === 0 || adminSections.length === 0) {
+                    showResult('❌ Navigation elements not found. Make sure you\'re on the admin page.', 'error');
+                    return;
+                }
+                
+                showResult(`✅ Navigation test passed! Found ${sidebarLinks.length} links and ${adminSections.length} sections.`, 'success');
+            } catch (error) {
+                showResult(`❌ Navigation test failed: ${error.message}`, 'error');
+            }
+        }
+        
+        async function loadSampleData() {
+            try {
+                showResult('Loading sample data...', 'info');
+                
+                if (!window.databaseSetup) {
+                    showResult('❌ Database setup not available. Please refresh the page.', 'error');
+                    return;
+                }
+                
+                await window.databaseSetup.loadSampleData();
+                showResult('✅ Sample data loaded successfully!', 'success');
+            } catch (error) {
+                showResult(`❌ Failed to load sample data: ${error.message}`, 'error');
+            }
+        }
+    </script>
+</body>
+</html> 
